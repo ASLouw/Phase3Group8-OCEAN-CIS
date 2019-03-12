@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "nodemon": "latest",
+    "express": "latest",
+    "promise-mysql": "latest"
+  },
+  "description": "",
+  "files": [],
+  "main": "server.js",
+  "name": "node",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "version": "1.0.0"
+}

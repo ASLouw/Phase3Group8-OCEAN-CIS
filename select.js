@@ -15,3 +15,19 @@ con.connect(function(err) {
   });
 });
 
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM transactions", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM cardList", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+

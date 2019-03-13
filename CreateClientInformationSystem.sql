@@ -18,7 +18,7 @@ USE `u17140634_COS301_Client_Information_Database` ;
 -- Table `u17140634_COS301_Client_Information_Database`.`clientInfo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `u17140634_COS301_Client_Information_Database`.`clientInfo` (
-  `client_id` INT NOT NULL,
+  `client_id` INT NOT NULL AUTO_INCREMENT,
   `client_name` VARCHAR(45) NOT NULL,
   `client_surname` VARCHAR(45) NOT NULL,
   `method_of_notification` VARCHAR(45) NOT NULL,

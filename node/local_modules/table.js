@@ -10,29 +10,16 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var sql = "CREATE TABLE clientInfo (client_id INT PRIMARY KEY, client_name VARCHAR(45), client_surname VARCHAR(45), method_of_notification VARCHAR(45), active TINYINT(1), password VARCHAR(45), cell_number VARCHAR(45), email VARCHAR(45))";
+  var sql = "CREATE TABLE clientInfo (client_id INT AUTO_INCREMENT PRIMARY KEY, client_name VARCHAR(45), client_surname VARCHAR(45), method_of_notification VARCHAR(45), active TINYINT(1), cell_number VARCHAR(45), email VARCHAR(45), home_address VARCHAR(250))";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table created");
-  });
-});
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "CREATE TABLE transactions (transaction_id INT PRIMARY KEY, client_id INT, value_changed VARCHAR(45), old_value VARCHAR(45), new_value VARCHAR(45), timestamp DATETIME)";
-  con.query(sql, function (err, result) {
+    sql = "CREATE TABLE transactions (transaction_id INT AUTO_INCREMENT PRIMARY KEY, client_id INT, value_changed VARCHAR(45), old_value VARCHAR(45), new_value VARCHAR(45), timestamp DATETIME)";
+  	con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Table created");
+    process.exit();
   });
 });
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "CREATE TABLE cardList (card_id INT PRIMARY KEY, client_id INT, active TINYINT(1))";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
   });
-});

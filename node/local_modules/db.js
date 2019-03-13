@@ -12,6 +12,7 @@ con.connect(function(err) {
   con.query("CREATE DATABASE u17140634_COS301_Client_Information_Database", function (err, result) {
     if (err) throw err;
     console.log("Database created");
+    process.exit();
   });
 });
 

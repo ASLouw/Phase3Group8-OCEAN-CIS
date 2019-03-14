@@ -1,4 +1,6 @@
 const axios = require('axios')
+const dbInfo = require("../dbInfo");
+const databaseInfo = new dbInfo();
 
 const userList = [
   {
@@ -74,13 +76,27 @@ module.exports={
     notifyAll({});
     return "user created!"
   },
-   getEmail: function(params) {
+  getEmail: async function(params) {
      /*
      TODO link to sql
      */
-     id = params.userId
-     retVal = searchByID(id);
-     return {email: retVal.email};
+
+    id = params.userId; 
+
+    
+    //works aswell if you log task 
+    //return await new Promise (function(success, reject){success(databaseInfo.getClientEmailFromDb(id).then(function (task){console.log(task); return task; }))});
+
+
+
+  //this works for the console.log
+  /* clientemail = await databaseInfo.getClientEmailFromDb(id);
+
+    console.log(clientemail);
+
+   return  {email: clientemail};*/
+
+    
   },
   getUsers: function(params){
     /*

@@ -89,14 +89,6 @@ module.exports={
 
     return userList;
   },
-  getPassword: function(params) {
-    /*
-    TODO link to sql
-    */
-    id = params.userId
-    retVal = searchByID(id);
-    return {password: retVal.password};
- },
  subscribe: function(params)
  {
    console.log(params);

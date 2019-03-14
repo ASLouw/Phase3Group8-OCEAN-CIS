@@ -1,7 +1,7 @@
 const dataBaseConnection = require("./dbConnection");
 const queries = require("./queries");
 
-module.exports = class ClientInfoDB 
+module.exports = class ClientInfoDB
 {
     async saveEntry(id,name,surname,method,active,password,cell,email)
     {
@@ -9,10 +9,10 @@ module.exports = class ClientInfoDB
 
         try
         {
-            await connection.query("START TRANSACTION");            
+            await connection.query("START TRANSACTION");
             await connection.query(queries.insert_clientinfo,[id, name, surname, method, active, password,cell, email]);
 
-            await connection.query("COMMIT");            
+            await connection.query("COMMIT");
             return entity;
         }
         catch(exception)
@@ -63,7 +63,7 @@ module.exports = class ClientInfoDB
             await connection.query("START TRANSACTION");
             await connection.query(queries.delete_clientinfo,[id]);
             await connection.query("COMMIT");
-            return true;            
+            return true;
         }
         catch(exception)
         {
@@ -81,19 +81,23 @@ module.exports = class ClientInfoDB
     async getClientEmailFromDb(id)
     {
         let connection = await dataBaseConnection();
-
         try
         {
             await connection.query("START TRANSACTION");
-
-            //console.log(queries.get_ClientEmail,[id]);
             let clientInfo = await connection.query(queries.get_ClientEmail,[id]);
-
+  
             await connection.query("COMMIT");
             //clientInfo = JSON.parse(JSON.stringify(clientInfo));
 
-            //console.log(clientInfo[0].email);
-            return new Promise (function (res,reject) { res(clientInfo[0].email)});            
+            if (clientInfo.length>0)
+            {
+              return clientInfo[0].email;
+            }
+            else
+            {
+              return "cleint does not exist";
+            }
+
         }
         catch(exception)
         {

@@ -81,22 +81,18 @@ module.exports={
      TODO link to sql
      */
 
-    id = params.userId; 
+    id = params.userId;
 
-    
-    //works aswell if you log task 
+    //works aswell if you log task
     //return await new Promise (function(success, reject){success(databaseInfo.getClientEmailFromDb(id).then(function (task){console.log(task); return task; }))});
 
 
 
   //this works for the console.log
-  /* clientemail = await databaseInfo.getClientEmailFromDb(id);
+   return databaseInfo.getClientEmailFromDb(id).then(function(value){console.log(value);
+     return {email: value}});
 
-    console.log(clientemail);
-
-   return  {email: clientemail};*/
-
-    
+    //console.log(clientemail);
   },
   getUsers: function(params){
     /*

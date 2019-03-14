@@ -12,7 +12,15 @@ app.use(bodyParser.json());
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
-app.post('/useremail/:userId', (req, res) => res.send(clients.getEmail(req.params)));
+app.post('/useremail/:userId', function (req, res)
+{
+    let promise = clients.getEmail(req.params)
+    promise.then(function(value)
+  {
+    console.log(value);
+    res.send(value);
+  })
+});
 /*const app = async() => {
     //let saveClient = await clientInfo.saveEntry(1,"Bob", "Doe", "SMS", 1,"qwerty", "0784693485", "bobDoe@gamil.com"
     //);

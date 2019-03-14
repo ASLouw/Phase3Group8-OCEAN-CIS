@@ -7,8 +7,9 @@ module.exports = async () => {
     {
         let pool;
         let conection;
+
         if(pool)
-        conection = pool.getConnection();
+          conection = pool.getConnection();
         else
         {
             pool = await mysql.createPool(dbConfig);

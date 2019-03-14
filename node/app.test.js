@@ -75,7 +75,7 @@ describe('POST /subscribe', ()=> {
         request(app)
             .post('/subscribe')
             .expect(200)
-            .expect((res)=>{console.log(res);
+            .expect((res)=>{
                 expect(res.text).toBe("subscribed!");
             })
             .end(done);

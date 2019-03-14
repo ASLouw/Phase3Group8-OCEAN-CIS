@@ -78,6 +78,43 @@ module.exports = class ClientInfoDB
         }
     }
 
+    async getClientActiveFromDb(id)
+    {
+        let connection = await dataBaseConnection();
+        try
+        {
+            await connection.query("START TRANSACTION");
+            let clientActive = await connection.query(queries.get_cleintActive,[id]);
+
+            console.log(queries.get_cleintActive,[id]);
+  
+            await connection.query("COMMIT");
+            //clientInfo = JSON.parse(JSON.stringify(clientInfo));
+
+            console.log("DBinfo: " + clientActive);
+
+            if (clientActive.length>0)
+            {
+              return clientActive[0].active;
+            }
+            else
+            {
+              return "cleint does not exist";
+            }
+
+        }
+        catch(exception)
+        {
+            console.log(exception);
+            throw exception;
+        }
+        finally
+        {
+            await connection.release();
+            await connection.destroy();
+        }
+    }
+
     async getClientEmailFromDb(id)
     {
         let connection = await dataBaseConnection();
@@ -98,6 +135,33 @@ module.exports = class ClientInfoDB
               return "cleint does not exist";
             }
 
+        }
+        catch(exception)
+        {
+            console.log(exception);
+            throw exception;
+        }
+        finally
+        {
+            await connection.release();
+            await connection.destroy();
+        }
+    }
+
+    async getLogsFromDb(id,startDate, endDate)
+    {
+        let connection = await dataBaseConnection();
+
+        try
+        {
+            await connection.query("START TRANSACTION");
+
+            let logs = await connection.query(queries.get_Logs,[startDate,endDate,id]);
+
+            await connection.query("COMMIT");
+            logs = JSON.parse(JSON.stringify(logs));
+
+            return logs;           
         }
         catch(exception)
         {

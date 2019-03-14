@@ -2,9 +2,9 @@
 const dbInfo = require("./local_modules/dbInfo");
 const express = require('express');
 const clients = require('./local_modules/routes/clients');
+const logs = require('./local_modules/routes/logs');
 const bodyParser = require('body-parser')
 const app = express()
-const clientInfo = new dbInfo();
 const port = 8000;
 
 app.use(bodyParser.json());
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
-app.post('/useremail/:userId', function (req, res)
+app.post('/email/:client_id', function (req, res)
 {
     let promise = clients.getEmail(req.params)
     promise.then(function(value)
@@ -21,24 +21,24 @@ app.post('/useremail/:userId', function (req, res)
     res.send(value);
   })
 });
-/*const app = async() => {
-    //let saveClient = await clientInfo.saveEntry(1,"Bob", "Doe", "SMS", 1,"qwerty", "0784693485", "bobDoe@gamil.com"
-    //);
-
-   // console.log("Saved client -->", saveClient);
 
 
+app.post('/logs/:client_id&:startDate&:endDate', function (req, res) {
+  let promise = logs.getLogs(req.params)
+    promise.then(function(value)
+  {
+    console.log(value);
+    res.send(value);
+  })
+});
 
-    let updateClient = await clientInfo.updateEntry("Jhon","Doe","Email","qwerty","0784693485","jhonDoe@gamil.com",1);
+app.post('/clientID/:client_id', function (req, res) {
+  console.log("id: " + req.params);
+  let promise = clients.getActive(req.params)
+    promise.then(function(value)
+  {
+    console.log(value);
+    res.send(value);
+  })
+}); 
 
-    console.log("Updated client -->", updateClient);
-
-    let deleteClient = await clientInfo.deleteEntry(1);
-
-    console.log("Deleted client -->", deleteClient);
-
-    let clientList = await clientInfo.readEntries()
-    console.log("List -->",clientList);
-}
-
-app();*/

@@ -1,6 +1,6 @@
 const mysql = require('promise-mysql');
 
-const dbConfig = {user:"root", password:"test1234", database:"u17140634_cos301_client_information_database", host:"localhost"}
+const dbConfig = {user:"root", password:"", database:"u17140634_cos301_client_information_database", host:"localhost"}
 
 module.exports = async () => {
     try

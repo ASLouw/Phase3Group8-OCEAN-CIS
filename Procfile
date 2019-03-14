@@ -1,2 +1,2 @@
 web: node app.js
-web: crud.js
+web: node crud.js

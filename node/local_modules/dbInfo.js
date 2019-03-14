@@ -78,18 +78,22 @@ module.exports = class ClientInfoDB
         }
     }
 
-    async readEntries()
+    async getClientEmailFromDb(id)
     {
         let connection = await dataBaseConnection();
 
         try
         {
             await connection.query("START TRANSACTION");
-            let clientInfo = await connection.query(queries.read_clientinfo);
+
+            //console.log(queries.get_ClientEmail,[id]);
+            let clientInfo = await connection.query(queries.get_ClientEmail,[id]);
 
             await connection.query("COMMIT");
-            clientInfo = JSON.parse(JSON.stringify(clientInfo));
-            return clientInfo;            
+            //clientInfo = JSON.parse(JSON.stringify(clientInfo));
+
+            //console.log(clientInfo[0].email);
+            return new Promise (function (res,reject) { res(clientInfo[0].email)});            
         }
         catch(exception)
         {

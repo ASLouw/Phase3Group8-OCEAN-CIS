@@ -1,0 +1,18 @@
+{
+  "dependencies": { 
+    "express": "^4.16.4",
+    "mysql2":"latest"
+    
+  },
+  "description": "",
+  "files": [],
+  "main": "crud.js",
+  "name": "node", 
+  "scripts": {
+    "start": "crud.js"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "version": "1.0.0" 
+}

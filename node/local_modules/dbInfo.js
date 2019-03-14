@@ -3,14 +3,14 @@ const queries = require("./queries");
 
 module.exports = class ClientInfoDB
 {
-    async saveEntry(id,name,surname,method,active,password,cell,email)
+    async saveEntry(name,surname,method,active,password,cell,email)
     {
         let connection = await dataBaseConnection();
 
         try
         {
             await connection.query("START TRANSACTION");
-            await connection.query(queries.insert_clientinfo,[id, name, surname, method, active, password,cell, email]);
+            await connection.query(queries.insert_clientinfo,[name, surname, method, active, password,cell, email]);
 
             await connection.query("COMMIT");
             return entity;

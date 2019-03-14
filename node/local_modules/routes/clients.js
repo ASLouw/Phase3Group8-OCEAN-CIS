@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 const userList = [
   {
     userId: 00,
@@ -30,6 +32,8 @@ const userList = [
     password:"skjfhksjahfaklsf"
   }
 ];
+var listeners = []
+
 function searchByID(id)
 {
   var retVal = {}
@@ -44,8 +48,32 @@ function searchByID(id)
     }
   }
   return retVal;
-}
+};
+
+function notifyAll(changeObj)
+{
+  var listen={};
+  for (var i=0; i<listeners.length;i++)
+  {
+    listen = listeners[i];
+    axios.post(listen, changeObj)
+  }
+};
+
 module.exports={
+  createUser: function(params)
+  {
+    notifyAll({});
+    return "user created!"
+  },
+  deleteUser: function(params)
+  {
+    /*
+    TODO link to sql
+    */
+    notifyAll({});
+    return "user created!"
+  },
    getEmail: function(params) {
      /*
      TODO link to sql
@@ -54,6 +82,13 @@ module.exports={
      retVal = searchByID(id);
      return {email: retVal.email};
   },
+  getUsers: function(params){
+    /*
+    TODO link to sql
+    */
+
+    return userList;
+  },
   getPassword: function(params) {
     /*
     TODO link to sql
@@ -61,5 +96,11 @@ module.exports={
     id = params.userId
     retVal = searchByID(id);
     return {password: retVal.password};
+ },
+ subscribe: function(params)
+ {
+   console.log(params);
+   listeners.push(params.URL);
+   return "subscribed!";
  }
 }

@@ -1,7 +1,9 @@
 {
   "dependencies": {
-    "nodemon": "latest",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "express": "latest",
+    "nodemon": "latest",
     "promise-mysql": "latest"
   },
   "description": "",

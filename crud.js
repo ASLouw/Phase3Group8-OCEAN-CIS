@@ -6,10 +6,10 @@ var mysql = require('mysql2');
 
 var conn=mysql.createConnection(
 {
-	host : "localhost",
-	user : "root",
-	password : "",
-	database : "u17140634_COS301_Client_Information_Database"
+	host : "eu-cdbr-west-02.cleardb.net",
+	user : "bdffef71b5c89d",
+	password : "6e8120b4",
+	database : "heroku_e0c1ec409484908"
 });
 
 function onRequest(request, response) 
@@ -124,7 +124,7 @@ function onRequest(request, response)
    						<body>\
    						<h1>Please enter password: </h1></br>\
       						<form action = "/passwordPage" method = "GET">\
-         						Password: <input type = "text" name = "clID">  </br>\
+         						Password: <input type = "password" name = "password" >  </br>\
          						<input type = "submit" value = "Submit">\
       						</form>\
    						</body>\
@@ -136,15 +136,15 @@ function onRequest(request, response)
 		{
 			var conn=mysql.createConnection(
 			{
-				host : "localhost",
-				user : "root",
-				password : "",
-				database : "u17140634_COS301_Client_Information_Database"
+				host : "eu-cdbr-west-02.cleardb.net",
+				user : "bdffef71b5c89d",
+				password : "6e8120b4",
+				database : "heroku_e0c1ec409484908"
 			});
 
 			response.writeHead(200, {'Content-Type': 'text/html'});
 
-			var queryString="INSERT INTO clientInfo (client_name, client_surname, method_of_notification, active, cell_number, email, home_address) VALUES('"+_url.query['clName']+"','"+_url.query['clSName']+"','"+_url.query['MoN']+"', 1 ,'"+_url.query['cellNum']+"','"+_url.query['email']+"','"+_url.query['address']+"')";
+			var queryString="INSERT INTO clientinfo (client_name, client_surname, method_of_notification, active, cell_number, email, home_address) VALUES('"+_url.query['clName']+"','"+_url.query['clSName']+"','"+_url.query['MoN']+"', 1 ,'"+_url.query['cellNum']+"','"+_url.query['email']+"','"+_url.query['address']+"')";
 			conn.query(queryString, function(error,data,fields)
 			{
 				if(error)
@@ -176,15 +176,15 @@ function onRequest(request, response)
 		{
 			var conn=mysql.createConnection(
 			{
-				host : "localhost",
-				user : "root",
-				password : "",
-				database : "u17140634_cos301_client_information_database"
+				host : "eu-cdbr-west-02.cleardb.net",
+				user : "bdffef71b5c89d",
+				password : "6e8120b4",
+				database : "heroku_e0c1ec409484908"
 			});
 
 			response.writeHead(200, {'Content-Type': 'text/html'});
 
-			var queryString="SELECT * FROM clientInfo WHERE client_id = "+_url.query['clID'];		
+			var queryString="SELECT * FROM clientinfo WHERE client_id = "+_url.query['clID'];		
 			conn.query(queryString, function(error,data,fields)
 			{
 				if(error)
@@ -235,10 +235,10 @@ function onRequest(request, response)
 
 				var con = mysql.createConnection(
 				{
-					host : "localhost",
-					user : "root",
-					password : "",
-					database : "u17140634_cos301_client_information_database"
+					host : "eu-cdbr-west-02.cleardb.net",
+					user : "bdffef71b5c89d",
+					password : "6e8120b4",
+					database : "heroku_e0c1ec409484908"
 				});
 
 				var queryString="UPDATE clientinfo SET clientinfo.client_name = '"+ name +"', clientinfo.client_surname = '"+ sName +"', clientinfo.method_of_notification = '"+ MoN +"', clientinfo.cell_number = '"+ cN +"', clientinfo.email = '"+ Em +"', clientinfo.home_address = '"+ addr +"' WHERE clientinfo.client_id = "+_url.query['clID'];
@@ -265,10 +265,10 @@ function onRequest(request, response)
 		{
 			var conn=mysql.createConnection(
 			{
-				host : "localhost",
-				user : "root",
-				password : "",
-				database : "u17140634_cos301_client_information_database"
+				host : "eu-cdbr-west-02.cleardb.net",
+				user : "bdffef71b5c89d",
+				password : "6e8120b4",
+				database : "heroku_e0c1ec409484908"
 			});
 
 			response.writeHead(200, {'Content-Type': 'text/html'});
@@ -302,13 +302,13 @@ function onRequest(request, response)
 		{
 			var conn=mysql.createConnection(
 			{
-				host : "localhost",
-				user : "root",
-				password : "",
-				database : "u17140634_cos301_client_information_database"
+				host : "eu-cdbr-west-02.cleardb.net",
+				user : "bdffef71b5c89d",
+				password : "6e8120b4",
+				database : "heroku_e0c1ec409484908"
 			});
 
-			var queryString="SELECT * FROM clientInfo WHERE client_id = "+_url.query['clID'];		
+			var queryString="SELECT * FROM clientinfo WHERE client_id = "+_url.query['clID'];		
 			conn.query(queryString, function(error,data,fields)
 			{
 				if(error)

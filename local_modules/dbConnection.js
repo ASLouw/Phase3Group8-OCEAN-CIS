@@ -1,6 +1,6 @@
 const mysql = require('promise-mysql');
 
-const dbConfig = {user:"bdffef71b5c89d", password:"6e8120b4", database:"heroku_e0c1ec409484908", host:"localhost"}
+const dbConfig = { host:"eu-cdbr-west-02.cleardb.net", user:"bdffef71b5c89d", password:"6e8120b4", database:"heroku_e0c1ec409484908"}
 
 module.exports = async () => {
     try

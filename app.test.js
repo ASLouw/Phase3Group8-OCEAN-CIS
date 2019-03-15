@@ -6,7 +6,7 @@ const  {app}  = require('./app');
 describe('POST /clientID', ()=> {
     it('should get success flag true',(done) =>{
         request(app)
-            .post('/clientID/5')
+            .post('/clientID/1')
             .expect(200)
             .expect((res)=>{
                 expect(res.body).toBe(false);
@@ -16,7 +16,7 @@ describe('POST /clientID', ()=> {
 
     it('should get success flag true',(done) =>{
         request(app)
-            .post('/clientID/4')
+            .post('/clientID/1')
             .expect(200)
             .expect((res)=>{
                 expect(res.body).toBe(true);
@@ -29,10 +29,10 @@ describe('POST /clientID', ()=> {
 describe('POST /email', ()=> {
     it('should get success flag true',(done) =>{
         request(app)
-            .post('/email/5')
+            .post('/email/21')
             .expect(200)
             .expect((res)=>{
-                expect(res.body).toEqual({"email": "baba@mail"});
+                expect(res.body).toEqual({"email": "mi.carrim@yahoo.com"});
             })
             .end(done);
     })
@@ -41,26 +41,18 @@ describe('POST /email', ()=> {
 describe('POST /logs', ()=> {
     it('should get success flag true',(done) =>{
         request(app)
-            .post('/logs/1&2019-03-13 22:51:56&2019-03-21 22:51:56')
+            .post('/logs/21&2019-03-15 10:22:43&2019-03-15 10:22:43')
             .expect(200)
             .expect((res)=>{
                 expect(res.body).toEqual({
                     "logs": [
                         {
-                            "transaction_id": 1,
-                            "client_id": 1,
-                            "value_changed": "5",
-                            "old_value": "100",
-                            "new_value": "95",
-                            "timestamp": "2019-03-14T15:38:21.000Z"
-                        },
-                        {
-                            "transaction_id": 4,
-                            "client_id": 1,
-                            "value_changed": "10",
-                            "old_value": "50",
-                            "new_value": "40",
-                            "timestamp": "2019-03-20T15:38:59.000Z"
+                            "transaction_id": 2,
+                            "client_id": 21,
+                            "value_changed": "home_address",
+                            "old_value": "347",
+                            "new_value": "349 Van der Wall street, Erasmia",
+                            "timestamp": "2019-03-15T08:22:43.000Z"
                         }
                     ]
                 });

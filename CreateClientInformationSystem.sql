@@ -18,32 +18,15 @@ USE `u17140634_COS301_Client_Information_Database` ;
 -- Table `u17140634_COS301_Client_Information_Database`.`clientInfo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `u17140634_COS301_Client_Information_Database`.`clientInfo` (
-  `client_id` INT NOT NULL,
+  `client_id` INT NOT NULL AUTO_INCREMENT,
   `client_name` VARCHAR(45) NOT NULL,
   `client_surname` VARCHAR(45) NOT NULL,
   `method_of_notification` VARCHAR(45) NOT NULL,
   `active` TINYINT(1) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
   `cell_number` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `home_address` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`client_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `u17140634_COS301_Client_Information_Database`.`cardList`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `u17140634_COS301_Client_Information_Database`.`cardList` (
-  `card_id` INT NOT NULL,
-  `client_id` INT NOT NULL,
-  `active` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`card_id`),
-  INDEX `userId_idx` (`client_id` ASC),
-  CONSTRAINT `userId`
-    FOREIGN KEY (`client_id`)
-    REFERENCES `u17140634_COS301_Client_Information_Database`.`clientInfo` (`client_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -56,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `u17140634_COS301_Client_Information_Database`.`trans
   `value_changed` VARCHAR(45) NOT NULL,
   `old_value` VARCHAR(45) NOT NULL,
   `new_value` VARCHAR(45) NOT NULL,
-  `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`transaction_id`),
   INDEX `user_id_idx` (`client_id` ASC),
   CONSTRAINT `user_id`

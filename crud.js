@@ -95,6 +95,27 @@ function onRequest(request, response)
 			response.write(cont);
 		}
 
+		if(pathname == "/reactivate")
+		{
+			response.writeHead(200, {'Content-Type': 'text/html'});
+			var cont='<head> \
+			<title>Basic Delete</title> \
+			</head> \
+			<body> \
+			<form method=get action=reactivateInfo>\
+			<h1>Please enter client to re-activate</h1> \
+			Client ID : <input type="text" name="clID"></br>\
+			<input type=submit value=submit>\
+			</form>\
+			\
+			<a href="/">Insert </a>\
+			<a href="/update">Update </a>\
+			<a href="/search">Search </a></br>\
+			</body>\
+			</html>';
+			response.write(cont);
+		}
+
 		if(pathname == "/search")
 		{
 			response.writeHead(200, {'Content-Type': 'text/html'});
@@ -280,6 +301,37 @@ function onRequest(request, response)
 
 			conn.end();
 			response.write("delete success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br>");
+
+			//response.writeHead(301,{Location: "http://localhost:8888/delete"});
+		}
+
+		if(pathname == "/reactivateInfo")
+		{
+			var conn=mysql.createConnection(
+			{
+				host : "eu-cdbr-west-02.cleardb.net",
+				user : "bdffef71b5c89d",
+				password : "6e8120b4",
+				database : "heroku_e0c1ec409484908"
+			});
+
+			response.writeHead(200, {'Content-Type': 'text/html'});
+
+			var queryString="UPDATE clientinfo SET  clientinfo.active = 1 WHERE clientinfo.client_id = "+_url.query['clID'];			
+			conn.query(queryString, function(error,data,fields)
+			{
+				if(error)
+				{
+					throw error;
+				}
+				else
+				{
+					console.log("success");
+				}
+			})
+
+			conn.end();
+			response.write("re-activate success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br>");
 
 			//response.writeHead(301,{Location: "http://localhost:8888/delete"});
 		}

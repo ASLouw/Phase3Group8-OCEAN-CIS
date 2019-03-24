@@ -70,11 +70,19 @@ module.exports={
   },
   deleteUser: function(params)
   {
-    /*
-    TODO link to sql
-    */
-    notifyAll({});
-    return "user created!"
+    id = params.client_id;
+
+    return databaseInfo.deleteEntry(id).then(function(value)
+    {
+        //console.log("Value: " +value);
+      if(value == true)
+      {
+        notifyAll({});
+        return true;
+      }      
+      else
+        return false;
+    });
   },
   getEmail: async function(params) {
     

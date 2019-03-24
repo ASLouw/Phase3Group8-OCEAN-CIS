@@ -44,5 +44,15 @@ app.post('/clientID/:client_id', function (req, res) {
   })
 }); 
 
+app.post('/deleteClient/:client_id', function (req, res) {
+  // console.log("id: " + req.params);
+   let promise = clients.deleteUser(req.params)
+     promise.then(function(value)
+   {
+     console.log(value);
+     res.send(value);
+   })
+ }); 
+
 module.exports.app = app;
 

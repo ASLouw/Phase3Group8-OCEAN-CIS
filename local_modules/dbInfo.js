@@ -61,9 +61,19 @@ module.exports = class ClientInfoDB
         try
         {
             await connection.query("START TRANSACTION");
-            await connection.query(queries.delete_clientinfo,[id]);
+            let deleteClient = await connection.query(queries.delete_clientinfo,[id]);
             await connection.query("COMMIT");
-            return true;
+
+            //console.log("Delete client: " + JSON.stringify(deleteClient));
+
+            if (deleteClient.changedRows > 0)
+            {
+              return true
+            }
+            else
+            {
+             return false;
+            }
         }
         catch(exception)
         {

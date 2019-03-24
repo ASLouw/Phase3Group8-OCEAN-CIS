@@ -36,6 +36,7 @@ function onRequest(request, response)
 			<a href="/update">Update </a></br>\
 			<a href="/delete">Delete </a></br>\
 			<a href="/search">Search </a></br>\
+			<a href="/reactivate">Re-activate </a></br>\
 			</body>\
 			</html>';
 			response.write(cont);
@@ -69,6 +70,7 @@ function onRequest(request, response)
 			<a href="/">Insert </a></br>\
 			<a href="/delete">Delete </a></br>\
 			<a href="/search">Search </a></br>\
+			<a href="/reactivate">Re-activate </a></br>\
 			</body>\
 			</html>';
 			response.write(cont);
@@ -90,6 +92,7 @@ function onRequest(request, response)
 			<a href="/">Insert </a>\
 			<a href="/update">Update </a>\
 			<a href="/search">Search </a></br>\
+			<a href="/reactivate">Re-activate </a></br>\
 			</body>\
 			</html>';
 			response.write(cont);
@@ -111,6 +114,7 @@ function onRequest(request, response)
 			<a href="/">Insert </a>\
 			<a href="/update">Update </a>\
 			<a href="/search">Search </a></br>\
+			<a href="/delete">Delete </a></br>\
 			</body>\
 			</html>';
 			response.write(cont);
@@ -269,7 +273,7 @@ function onRequest(request, response)
 				con.end();
 			});
 
-			response.write("update success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a> </br><a href='/delete'>Delete </a></br><a href='/search'>Search </a></br>");
+			response.write("update success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a> </br><a href='/delete'>Delete </a></br><a href='/search'>Search </a></br><a href='/reactivate'>Re-activate </a></br>");
 			//response.writeHead(301,{Location: "http://localhost:8888/update"});
 			conn.end();
 		}
@@ -300,7 +304,7 @@ function onRequest(request, response)
 			})
 
 			conn.end();
-			response.write("delete success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br>");
+			response.write("delete success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br><a href='/reactivate'>Re-activate </a></br>");
 
 			//response.writeHead(301,{Location: "http://localhost:8888/delete"});
 		}
@@ -331,7 +335,7 @@ function onRequest(request, response)
 			})
 
 			conn.end();
-			response.write("re-activate success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br>");
+			response.write("re-activate success \n<a href='/'>Insert </a></br> <a href='/update'>Update </a></br> <a href='/delete'>Delete </a></br><a href='/search'>Search </a></br><a href='/reactivate'>Re-activate </a></br>");
 
 			//response.writeHead(301,{Location: "http://localhost:8888/delete"});
 		}
@@ -396,6 +400,7 @@ function onRequest(request, response)
 					<a href="/update">Update </a></br>\
 					<a href="/delete">Delete </a></br>\
 					<a href="/search">Search </a></br>\
+					<a href="/reactivate">Re-activate </a></br>\
 					</body>\
 					</html>';
 					response.write(cont);

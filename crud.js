@@ -1,22 +1,7 @@
 var express = require('express');
 var app = express();
-var path = require('path');
+var path = require('path')
 var sql = require("mysql2");
-var csv = require('csv-parser');
-var fileStream = require('fs');
-var multer = require('multer');
-var upload = multer({ dest: 'uploads/' })
-
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-	  cb(null, './uploads')
-	},
-	filename: function (req, file, cb) {
-	  cb(null, file.fieldname + ".csv")
-	}
-  })
-  
-var upload = multer({ storage: storage })
 
 app.get('/views/style.css', function (req, res) 
 {
@@ -90,44 +75,6 @@ app.get('/insertInfo', function (req, res)
 		}
 	});
 	con.end();
-
-	res.redirect('/success');
-});
-
-app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
-{	
-	fileStream.createReadStream("uploads/csvfile.csv")
-		.pipe(csv())
-		.on('data',(row) => 
-		{
-			var con=sql.createConnection(
-				{
-					host : "eu-cdbr-west-02.cleardb.net",
-					user : "bdffef71b5c89d",
-					password : "6e8120b4",
-					database : "heroku_e0c1ec409484908"
-				});		
-
-			var sqlQ = "INSERT INTO clientinfo (client_name, client_surname, method_of_notification, active, cell_number, email, home_address) VALUES('"+row.Name+"','"+row.Surname+"','"+row.Method+"', 1 ,'"+row.CellNumber+"','"+row.Email+"','"+row.HomeAddress+"')";
-
-			con.query(sqlQ, function(error,data,fields)
-			{
-				if(error)
-				{
-					res.redirect('/error');
-				}
-				else
-				{
-					console.log("success");
-				}
-			});
-
-			con.end();
-
-		})
-		.on('end',() => {
-			console.log('CSV file successfully processed');
-		});	
 
 	res.redirect('/success');
 });

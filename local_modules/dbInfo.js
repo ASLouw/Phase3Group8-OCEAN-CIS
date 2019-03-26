@@ -96,12 +96,12 @@ module.exports = class ClientInfoDB
             await connection.query("START TRANSACTION");
             let clientActive = await connection.query(queries.get_cleintActive,[id]);
 
-            console.log(queries.get_cleintActive,[id]);
+            //console.log(queries.get_cleintActive,[id]);
   
             await connection.query("COMMIT");
             //clientInfo = JSON.parse(JSON.stringify(clientInfo));
 
-            console.log("DBinfo: " + clientActive);
+            //console.log("DBinfo: " + clientActive);
 
             if (clientActive.length>0)
             {

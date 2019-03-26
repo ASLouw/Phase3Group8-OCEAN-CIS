@@ -2,7 +2,7 @@ const axios = require('axios')
 const dbInfo = require("../dbInfo");
 const databaseInfo = new dbInfo();
 
-const userList = [
+/*const userList = [
   {
     userId: 00,
     email: "00@gmail.com",
@@ -33,10 +33,10 @@ const userList = [
     email: "05@gmail.com",
     password:"skjfhksjahfaklsf"
   }
-];
+];*/
 var listeners = []
 
-function searchByID(id)
+/*function searchByID(id)
 {
   var retVal = {}
   var u = null;
@@ -50,7 +50,7 @@ function searchByID(id)
     }
   }
   return retVal;
-};
+};*/
 
 function notifyAll(changeObj)
 {
@@ -70,11 +70,19 @@ module.exports={
   },
   deleteUser: function(params)
   {
-    /*
-    TODO link to sql
-    */
-    notifyAll({});
-    return "user created!"
+    id = params.client_id;
+
+    return databaseInfo.deleteEntry(id).then(function(value)
+    {
+        //console.log("Value: " +value);
+      if(value == true)
+      {
+        notifyAll({});
+        return true;
+      }      
+      else
+        return false;
+    });
   },
   getEmail: async function(params) {
     
@@ -93,13 +101,13 @@ module.exports={
     return false;
     });  
   },
-  getUsers: function(params){
+  /*getUsers: function(params){
     /*
     TODO link to sql
-    */
+    
 
     return userList;
-  },
+  },*/
  subscribe: function(params)
  {
    console.log(params);

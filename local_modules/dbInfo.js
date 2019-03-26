@@ -61,9 +61,19 @@ module.exports = class ClientInfoDB
         try
         {
             await connection.query("START TRANSACTION");
-            await connection.query(queries.delete_clientinfo,[id]);
+            let deleteClient = await connection.query(queries.delete_clientinfo,[id]);
             await connection.query("COMMIT");
-            return true;
+
+            //console.log("Delete client: " + JSON.stringify(deleteClient));
+
+            if (deleteClient.changedRows > 0)
+            {
+              return true
+            }
+            else
+            {
+             return false;
+            }
         }
         catch(exception)
         {
@@ -86,12 +96,12 @@ module.exports = class ClientInfoDB
             await connection.query("START TRANSACTION");
             let clientActive = await connection.query(queries.get_cleintActive,[id]);
 
-            console.log(queries.get_cleintActive,[id]);
+            //console.log(queries.get_cleintActive,[id]);
   
             await connection.query("COMMIT");
             //clientInfo = JSON.parse(JSON.stringify(clientInfo));
 
-            console.log("DBinfo: " + clientActive);
+            //console.log("DBinfo: " + clientActive);
 
             if (clientActive.length>0)
             {

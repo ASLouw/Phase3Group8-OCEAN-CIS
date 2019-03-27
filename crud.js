@@ -424,4 +424,72 @@ app.get('/display', function(req,res)
     con.end();
 });
 
+app.get('/displayAct', function(req,res) 
+{
+    /*var con = sql.createConnection(
+    {
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "u17140634_cos301_client_information_database"
+    });*/
+
+    var con=sql.createConnection(
+	{
+		host : "eu-cdbr-west-02.cleardb.net",
+		user : "bdffef71b5c89d",
+		password : "6e8120b4",
+		database : "heroku_e0c1ec409484908"
+	});
+
+    var query = "SELECT * FROM clientinfo WHERE active = 1";
+
+    con.query(query, function(err,result)
+    {
+        if(err)
+        {
+            res.redirect('/error');
+        }
+        else 
+        {
+            res.render('searchRes.ejs', { contacts: result });  
+        }
+    });
+    con.end();
+});
+
+app.get('/displayInact', function(req,res) 
+{
+    /*var con = sql.createConnection(
+    {
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "u17140634_cos301_client_information_database"
+    });*/
+
+    var con=sql.createConnection(
+	{
+		host : "eu-cdbr-west-02.cleardb.net",
+		user : "bdffef71b5c89d",
+		password : "6e8120b4",
+		database : "heroku_e0c1ec409484908"
+	});
+
+    var query = "SELECT * FROM clientinfo WHERE active = 0";
+
+    con.query(query, function(err,result)
+    {
+        if(err)
+        {
+            res.redirect('/error');
+        }
+        else 
+        {
+            res.render('searchRes.ejs', { contacts: result });  
+        }
+    });
+    con.end();
+});
+
 app.listen(process.env.PORT || 8888);

@@ -5,7 +5,9 @@ var sql = require("mysql2");
 var csv = require('csv-parser');
 var fileStream = require('fs');
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'uploads/' });
+
+var http = require('http');
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -55,7 +57,7 @@ app.get('/delete', function (req, res)
 
 app.get('/reactivate', function (req, res) 
 {
-    res.sendFile(path.join(__dirname+'/views/reactivate.html'));
+	res.sendFile(path.join(__dirname+'/views/reactivate.html'));	
 });
 
 app.get('/insertInfo', function (req, res)
@@ -273,38 +275,47 @@ app.get('/deleteinfo', function (req, res)
 
 app.get('/reactivateInfo', function (req, res)
 {
-   /* var con = sql.createConnection(
-    {
-      host: "localhost",
-      user: "root",
-      password: "",
-      database: "u17140634_cos301_client_information_database"
-    });*/
-
-    var con=sql.createConnection(
-	{
-		host : "eu-cdbr-west-02.cleardb.net",
-		user : "bdffef71b5c89d",
-		password : "6e8120b4",
-		database : "heroku_e0c1ec409484908"
-	});
-
-    var sqlQ = "UPDATE clientinfo SET  clientinfo.active = 1 WHERE clientinfo.client_id = "+req.query.clID;
-
-    con.query(sqlQ, function(error,data,fields)
-	{
-		if(error)
+	var con=sql.createConnection(
 		{
-			res.redirect('/error');
-		}
-		else
+			host : "eu-cdbr-west-02.cleardb.net",
+			user : "bdffef71b5c89d",
+			password : "6e8120b4",
+			database : "heroku_e0c1ec409484908"
+		});
+	
+		var sqlQ = "UPDATE clientinfo SET  clientinfo.active = 1 WHERE clientinfo.client_id = "+req.query.clID;
+	
+		con.query(sqlQ, function(error,data,fields)
 		{
-			console.log("success");
-		}
-	});
-	con.end();
-
-	res.redirect('/success');
+			if(error)
+			{
+				res.redirect('/error');
+			}
+			else
+			{
+				console.log("success");
+			}
+		});
+		con.end();		
+	
+		var options = {
+			host: '127.0.0.1',
+			path: '/reactivate',
+			port: '8000',
+			method: 'POST',
+			headers : {'Content-Type': 'application/json'}
+		};
+	
+		var request = http.request(options);
+	
+		request.on('error', function(e) {
+			console.log('problem with request: ' + e.message);
+		  });
+		
+		request.write('{"client_id" : "'+ req.query.clID +'"}');
+		request.end();
+	
+		res.redirect('/success');
 });
 
 app.set('view engine', 'ejs');

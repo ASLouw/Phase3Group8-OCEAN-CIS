@@ -38,6 +38,16 @@
 	            <input type="submit" value="Insert" />
 	        </p>
 		</form>
+		<form method=post action=/insertInfoCSV enctype=multipart/form-data>
+			<h1>Insert via csv file</h1> 
+			<p>
+				<label>File : </label>
+				<input type="file" name="csvfile" required>
+			</p>			
+			<p class="wipeout">
+	            <input type="submit" value="Insert CSV" />
+	        </p>
+		</form>
 		<table>
 			<tr>
 				<td><a href="/display">Display All</a></td>

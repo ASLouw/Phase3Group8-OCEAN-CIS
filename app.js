@@ -12,6 +12,29 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
 
+app.post('/createUser', function (req, res)
+{
+  let val = clients.createUser(req.body)  ;
+  console.log(val);
+
+    /*let promise = clients.createUser(req.body)    
+    promise.then(function(value)
+  {
+    console.log(value);
+    res.send(value);
+  })*/
+});
+
+app.post('/reactivate', function (req, res)
+{//req.body
+  //console.log("here");
+  //console.log(JSON.stringify(req.body));
+    let val = clients.reactivateUser(req.body)    
+    
+    console.log(val);
+    
+});
+
 //127.0.0.1:8000/email
 //body {"client_id" : "1"}
 app.post('/email', function (req, res)
@@ -51,6 +74,9 @@ app.post('/clientID', function (req, res) {
 //body {"client_id" : "1"}
 app.post('/deleteClient', function (req, res) {
   //console.log("id: " + req.body);
+
+  //let val = clients.deleteUser(req.body)  ;
+  //console.log(val);
 
   let promise = clients.deleteUser(req.body)
     promise.then(function(value)

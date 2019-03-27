@@ -64,13 +64,20 @@ function notifyAll(changeObj)
 
 module.exports={
   createUser: function(params)
-  {
+  {    
+
+    id = params.client_id;
+    console.log(id);
     notifyAll({});
-    return "user created!"
+    return "Systems notified of client added";
   },
   deleteUser: function(params)
   {
     id = params.client_id;
+
+    /*console.log(id);
+    notifyAll({});
+    return "Systems notified of client deleted";*/
 
     return databaseInfo.deleteEntry(id).then(function(value)
     {

@@ -2,7 +2,7 @@ const axios = require('axios')
 const dbInfo = require("../dbInfo");
 const databaseInfo = new dbInfo();
 
-const userList = [
+/*const userList = [
   {
     userId: 00,
     email: "00@gmail.com",
@@ -33,10 +33,10 @@ const userList = [
     email: "05@gmail.com",
     password:"skjfhksjahfaklsf"
   }
-];
+];*/
 var listeners = []
 
-function searchByID(id)
+/*function searchByID(id)
 {
   var retVal = {}
   var u = null;
@@ -50,7 +50,7 @@ function searchByID(id)
     }
   }
   return retVal;
-};
+};*/
 
 function notifyAll(changeObj)
 {
@@ -64,13 +64,20 @@ function notifyAll(changeObj)
 
 module.exports={
   createUser: function(params)
-  {
+  {    
+
+    id = params.client_id;
+    console.log(id);
     notifyAll({});
-    return "user created!"
+    return "Systems notified of client added";
   },
   deleteUser: function(params)
   {
     id = params.client_id;
+
+    /*console.log(id);
+    notifyAll({});
+    return "Systems notified of client deleted";*/
 
     return databaseInfo.deleteEntry(id).then(function(value)
     {
@@ -101,13 +108,36 @@ module.exports={
     return false;
     });  
   },
-  getUsers: function(params){
+  reactivateUser: function(params)
+  {
+
+    //console.log("ID: " +params.client_id);
+    id = params.client_id;
+    notifyAll({});
+
+    //console.log("Systems notified of re-activation");
+    return "Systems notified of re-activation";
+
+
+    /*return databaseInfo.deleteEntry(id).then(function(value)
+    {
+        //console.log("Value: " +value);
+      if(value == true)
+      {
+        notifyAll({});
+        return true;
+      }      
+      else
+        return false;
+    });*/
+  },
+  /*getUsers: function(params){
     /*
     TODO link to sql
-    */
+    
 
     return userList;
-  },
+  },*/
  subscribe: function(params)
  {
    console.log(params);

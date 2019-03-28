@@ -1,0 +1,29 @@
+<html>
+	<head> 
+		<title>Basic Delete</title>
+		<link rel="stylesheet" type="text/css" href="/views/style.css">
+	</head> 
+	<body> 
+		<form method=get action=deleteinfo>
+			<h1>Please enter client to delete</h1> 
+			<p>
+				<label>Client ID: </label>
+				<input type = "text" name = "clID" required>
+			</p>
+			<p class="wipeout">
+	            <input type="submit" value="Delete" />
+	        </p>
+		</form>
+		
+		<table>
+			<tr>
+				<td><a href="/display">Display All</a></td>
+				<td><a href="/displayAct">Display Active</a></td>
+                <td><a href="/displayInact">Display Inactive</a></td>
+				<td><a href="/">Insert</a></td>
+				<td><a href="/update">Update</a></td>
+			    <td><a href="/search">Search</a></td>
+				<td><a href="/reactivate">Re-Activate</a></td>
+			</tr>
+		</table>
+</html>

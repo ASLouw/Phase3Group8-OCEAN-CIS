@@ -84,7 +84,17 @@ app.post('/deleteClient', function (req, res) {
     console.log(value);
     res.send(value);
   })
-}); 
+});
+
+app.post('/deleteClientFromInterface', function (req, res)
+{//req.body
+  //console.log("here");
+  //console.log(JSON.stringify(req.body));
+    let val = clients.deleteUserFromInterface(req.body)    
+    
+    console.log(val);
+    
+});
 
 module.exports.app = app;
 

@@ -108,6 +108,29 @@ module.exports={
     return false;
     });  
   },
+  reactivateUser: function(params)
+  {
+
+    //console.log("ID: " +params.client_id);
+    id = params.client_id;
+    notifyAll({});
+
+    //console.log("Systems notified of re-activation");
+    return "Systems notified of re-activation";
+
+
+    /*return databaseInfo.deleteEntry(id).then(function(value)
+    {
+        //console.log("Value: " +value);
+      if(value == true)
+      {
+        notifyAll({});
+        return true;
+      }      
+      else
+        return false;
+    });*/
+  },
   /*getUsers: function(params){
     /*
     TODO link to sql

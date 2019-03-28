@@ -105,7 +105,7 @@ app.get('/insertInfo', function (req, res)
 				database : "heroku_e0c1ec409484908"
 			});
 
-		    var sqlQ = "SELECT COUNT(transaction_id) FROM transactions";
+		    var sqlQ = "SELECT COUNT(transaction_id) as total FROM transactions";
 
 		    conn.query(sqlQ, function(error, resul)
 		    {
@@ -116,7 +116,7 @@ app.get('/insertInfo', function (req, res)
 
 		    	else
 		    	{
-		    		if(resul > 100)
+		    		if(resul[0].total > 100)
 		    		{
 		    			var connect=sql.createConnection(
 						{
@@ -125,7 +125,7 @@ app.get('/insertInfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "SELECT * FROM transactions";
+		    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) FROM transactions";
 		    			connect.query(sqlQ, function(err, resl)
 		    			{
 		    				if(err)
@@ -225,7 +225,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 						database : "heroku_e0c1ec409484908"
 					});
 
-				    var sqlQ = "SELECT COUNT(transaction_id) FROM transactions";
+				    var sqlQ = "SELECT COUNT(transaction_id) as total FROM transactions";
 
 				    conn.query(sqlQ, function(error, resul)
 				    {
@@ -236,7 +236,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 
 				    	else
 				    	{
-				    		if(resul > 100)
+				    		if(resul[0].total > 100)
 				    		{
 				    			var connect=sql.createConnection(
 								{
@@ -245,7 +245,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 									password : "6e8120b4",
 									database : "heroku_e0c1ec409484908"
 								});
-				    			var sqlQ = "SELECT * FROM transactions";
+				    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) FROM transactions";
 				    			connect.query(sqlQ, function(err, resl)
 				    			{
 				    				if(err)
@@ -405,7 +405,7 @@ app.get('/updateinfo', function (req, res)
 					database : "heroku_e0c1ec409484908"
 				});
 
-			    var sqlQ = "SELECT COUNT(transaction_id) FROM transactions";
+			    var sqlQ = "SELECT COUNT(transaction_id) as total FROM transactions";
 
 			    conn.query(sqlQ, function(error, resul)
 			    {
@@ -416,7 +416,7 @@ app.get('/updateinfo', function (req, res)
 
 			    	else
 			    	{
-			    		if(resul > 100)
+			    		if(resul[0].total > 100)
 			    		{
 			    			var connect=sql.createConnection(
 							{
@@ -425,7 +425,7 @@ app.get('/updateinfo', function (req, res)
 								password : "6e8120b4",
 								database : "heroku_e0c1ec409484908"
 							});
-			    			var sqlQ = "SELECT * FROM transactions";
+			    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) FROM transactions";
 			    			connect.query(sqlQ, function(err, resl)
 			    			{
 			    				if(err)
@@ -435,6 +435,7 @@ app.get('/updateinfo', function (req, res)
 
 			    				else
 			    				{
+			    					console.log(resl);
 			    					//Send Result object from here or save to global variable to send via different means
 			    				}
 			    			});
@@ -450,7 +451,7 @@ app.get('/updateinfo', function (req, res)
 								password : "6e8120b4",
 								database : "heroku_e0c1ec409484908"
 							});
-			    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+data.insertId+"', 'UPDATE')";
+			    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'UPDATED')";
 			    			connect.query(sqlQ, function(err, resl)
 			    			{
 			    				if(err)
@@ -505,7 +506,7 @@ app.get('/deleteinfo', function (req, res)
 				database : "heroku_e0c1ec409484908"
 			});
 
-		    var sqlQ = "SELECT COUNT(transaction_id) FROM transactions";
+		    var sqlQ = "SELECT COUNT(transaction_id) as total FROM transactions";
 
 		    conn.query(sqlQ, function(error, resul)
 		    {
@@ -516,7 +517,7 @@ app.get('/deleteinfo', function (req, res)
 
 		    	else
 		    	{
-		    		if(resul > 100)
+		    		if(resul[0].total > 100)
 		    		{
 		    			var connect=sql.createConnection(
 						{
@@ -525,7 +526,7 @@ app.get('/deleteinfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "SELECT * FROM transactions";
+		    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) FROM transactions";
 		    			connect.query(sqlQ, function(err, resl)
 		    			{
 		    				if(err)
@@ -550,7 +551,7 @@ app.get('/deleteinfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+data.insertId+"', 'INSERT')";
+		    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'DELETED')";
 		    			connect.query(sqlQ, function(err, resl)
 		    			{
 		    				if(err)
@@ -621,7 +622,7 @@ app.get('/reactivateInfo', function (req, res)
 				database : "heroku_e0c1ec409484908"
 			});
 
-		    var sqlQ = "SELECT COUNT(transaction_id) FROM transactions";
+		    var sqlQ = "SELECT COUNT(transaction_id) as total FROM transactions";
 
 		    conn.query(sqlQ, function(error, resul)
 		    {
@@ -632,7 +633,7 @@ app.get('/reactivateInfo', function (req, res)
 
 		    	else
 		    	{
-		    		if(resul > 100)
+		    		if(resul[0].total > 100)
 		    		{
 		    			var connect=sql.createConnection(
 						{
@@ -641,7 +642,7 @@ app.get('/reactivateInfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "SELECT * FROM transactions";
+		    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) FROM transactions";
 		    			connect.query(sqlQ, function(err, resl)
 		    			{
 		    				if(err)
@@ -666,7 +667,7 @@ app.get('/reactivateInfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+data.insertId+"', 'INSERT')";
+		    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'REACTIVATED')";
 		    			connect.query(sqlQ, function(err, resl)
 		    			{
 		    				if(err)

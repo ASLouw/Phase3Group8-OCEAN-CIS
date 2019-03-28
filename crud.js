@@ -291,7 +291,7 @@ app.get('/deleteinfo', function (req, res)
 
 	var options = {
 		host: '127.0.0.1',
-		path: '/deleteClient',
+		path: '/deleteClientFromInterface',
 		port: '8000',
 		method: 'POST',
 		headers : {'Content-Type': 'application/json'}

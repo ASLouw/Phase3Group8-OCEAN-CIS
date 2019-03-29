@@ -1,5 +1,6 @@
 const dataBaseConnection = require("./dbConnection");
 const queries = require("./queries");
+var http = require('http');
 
 module.exports = class ClientInfoDB
 {
@@ -201,7 +202,7 @@ module.exports = class ClientInfoDB
 
             console.log(count);
 
-            if (count > 100)
+            if (count > 22)
             {
                 await connection.query("START TRANSACTION");
 
@@ -211,7 +212,35 @@ module.exports = class ClientInfoDB
 
                 logs = JSON.parse(JSON.stringify(logs));
 
-                console.log(logs);
+                //console.log(logs);
+
+                /*var options = {
+                    host: '127.0.0.1',
+                    path: '/createUser',
+                    port: '8000',
+                    method: 'POST',
+                    headers : {'Content-Type': 'application/json'}
+                };
+                
+                var request = http.request(options);
+        
+                request.on('error', function(e) {
+                console.log('problem with request: ' + e.message);
+                });*/
+
+
+
+                let logdata ='{"transaction_id":"'+logs[0].transaction_id+'","client_id":"'+logs[0].client_id+'","transaction_type":"'+logs[0].transaction_type+'","timestamp":"'+logs[0].timestamp+'"}';
+
+                for(let a = 1; a <= 22; a++)
+                {
+                    logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
+                }
+            
+                //request.write('{"system" : "CIS","data":['+ logdata+']}');
+                console.log('{"system" : "CIS","data":['+ logdata+']}');  
+
+                
 
                 await connection.query("START TRANSACTION");
 

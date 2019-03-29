@@ -65,7 +65,7 @@ function notifyAll(changeObj)
 module.exports={
   createUser: function(params)
   {    
-
+    //used with crud 
     id = params.client_id;
     console.log(id);
     notifyAll({});
@@ -82,6 +82,12 @@ module.exports={
     return databaseInfo.deleteEntry(id).then(function(value)
     {
         //console.log("Value: " +value);
+
+      count = databaseInfo.logDelete(id);
+
+      //console.log("clients.js: " +count);
+
+
       if(value == true)
       {
         notifyAll({});
@@ -110,7 +116,7 @@ module.exports={
   },
   reactivateUser: function(params)
   {
-
+    //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
     notifyAll({});
@@ -120,7 +126,7 @@ module.exports={
   },
   deleteUserFromInterface: function(params)
   {
-
+    //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
     notifyAll({});
@@ -128,13 +134,6 @@ module.exports={
     //console.log("Systems notified of re-activation");
     return "Systems notified of deletion";    
   },
-  /*getUsers: function(params){
-    /*
-    TODO link to sql
-    
-
-    return userList;
-  },*/
  subscribe: function(params)
  {
    console.log(params);

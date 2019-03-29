@@ -184,4 +184,72 @@ module.exports = class ClientInfoDB
             await connection.destroy();
         }
     }
+
+    async logDelete(id)
+    {
+        let connection = await dataBaseConnection();
+
+        try
+        {
+            await connection.query("START TRANSACTION");
+
+            let count = await connection.query(queries.get_log_count);
+
+            await connection.query("COMMIT");
+            count = JSON.parse(JSON.stringify(count));
+            count = count[0].total
+
+            console.log(count);
+
+            if (count > 100)
+            {
+                await connection.query("START TRANSACTION");
+
+                let logs = await connection.query(queries.get_logs);
+
+                await connection.query("COMMIT");
+
+                logs = JSON.parse(JSON.stringify(logs));
+
+                console.log(logs);
+
+                await connection.query("START TRANSACTION");
+
+                let del = await connection.query(queries.log_delete,[id]);
+
+                await connection.query("COMMIT");
+
+                del = JSON.parse(JSON.stringify(del));
+                //console.log(logs);
+
+                console.log("Logged delete");
+            }
+            else
+            {
+                await connection.query("START TRANSACTION");
+
+                let logs = await connection.query(queries.log_delete,[id]);
+
+                await connection.query("COMMIT");
+
+                logs = JSON.parse(JSON.stringify(logs));
+               // console.log(logs);
+
+                console.log("Logged delete");
+            }
+
+            
+            return count;           
+        }
+        catch(exception)
+        {
+            console.log(exception);
+            throw exception;
+        }
+        finally
+        {
+            await connection.release();
+            await connection.destroy();
+        }
+    }
 };

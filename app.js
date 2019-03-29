@@ -73,17 +73,24 @@ app.post('/clientID', function (req, res) {
 //127.0.0.1:8000/deleteClient
 //body {"client_id" : "1"}
 app.post('/deleteClient', function (req, res) {
-  //console.log("id: " + req.body);
+  //console.log("id: " + JSON.stringify(req.body));
 
   //let val = clients.deleteUser(req.body)  ;
   //console.log(val);
-
-  let promise = clients.deleteUser(req.body)
-    promise.then(function(value)
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  //console.log("sys: " + body.system )
+  if(sys == 'AUTH')
   {
-    console.log(value);
-    res.send(value);
-  })
+    let promise = clients.deleteUser(req.body)
+    promise.then(function(value)
+    {
+      console.log(value);
+      res.send(value);
+    })
+  }
+  else
+    res.send(false);  
 });
 
 app.post('/deleteClientFromInterface', function (req, res)

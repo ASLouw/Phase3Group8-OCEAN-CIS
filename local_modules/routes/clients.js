@@ -74,40 +74,49 @@ module.exports={
   deleteUser: function(params)
   {
     id = params.client_id;
+    system = params.system;
+
+    //console.log("System: " + system)
 
     /*console.log(id);
     notifyAll({});
     return "Systems notified of client deleted";*/
 
-    return databaseInfo.deleteEntry(id).then(function(value)
-    {
-        //console.log("Value: " +value);
-
-      count = databaseInfo.logDelete(id);
-
-      //console.log("clients.js: " +count);
-
-
-      if(value == true)
+      return databaseInfo.deleteEntry(id).then(function(value)
       {
-        notifyAll({});
-        return true;
-      }      
-      else
-        return false;
-    });
+          //console.log("Value: " +value);
+  
+        count = databaseInfo.logDelete(id,system);
+  
+        //console.log("clients.js: " +count);
+  
+  
+        if(value == true)
+        {
+          notifyAll({});
+          return true;
+        }      
+        else
+          return false;
+      });     
+   
   },
   getEmail: async function(params) {
     
     id = params.client_id;
+    system = params.system;
 
    return databaseInfo.getClientEmailFromDb(id).then(function(value){console.log(value);
+    log = databaseInfo.logGetEmail(id,system);
      return {email: value}});
   },
   getActive: async function(params) {    
    id = params.client_id;
+   system = params.system;
+
   
   return databaseInfo.getClientActiveFromDb(id).then(function(value){console.log(value);
+    log = databaseInfo.logGetActive(id,system);
     if(value == "1")
       return true;
     else

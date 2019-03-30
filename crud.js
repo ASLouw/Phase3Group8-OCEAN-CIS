@@ -94,7 +94,7 @@ app.get('/insertInfo', function (req, res)
 				console.log('problem with request: ' + e.message);
 			  });
 			
-			request.write('{"client_id" : "'+ result.insertId +'"}');
+			request.write('{"system":"CIS","client_id" : "'+ result.insertId +'"}');
 			request.end();
 			
 			var conn=sql.createConnection(
@@ -261,7 +261,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 						console.log('problem with request: ' + e.message);
 					  });
 					
-					request.write('{"client_id" : "'+ result.insertId +'"}');
+					request.write('{"system":"CIS","client_id" : "'+ result.insertId +'"}');
 					request.end();
 
 					var conn=sql.createConnection(
@@ -774,7 +774,7 @@ app.get('/deleteinfo', function (req, res)
 		console.log('problem with request: ' + e.message);
 	  });
 	
-	request.write('{"client_id" : "'+ req.query.clID +'"}');
+	request.write('{"system":"CIS","client_id" : "'+ req.query.clID +'"}');
 	request.end();
 
 	res.redirect('/success');
@@ -937,7 +937,7 @@ app.get('/reactivateInfo', function (req, res)
 		console.log('problem with request: ' + e.message);
 	  });
 	
-	request.write('{"client_id" : "'+ req.query.clID +'"}');
+	request.write('{"system":"CIS","client_id" : "'+ req.query.clID +'"}');
 	request.end();
 
 	res.redirect('/success');

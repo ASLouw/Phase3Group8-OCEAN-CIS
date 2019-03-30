@@ -14,8 +14,24 @@ app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
 
 app.post('/createUser', function (req, res)
 {
-  let val = clients.createUser(req.body)  ;
-  console.log(val);
+
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  
+  if(sys == "CIS")
+  {
+    let val = clients.createUser(req.body)  ;
+    console.log(val);
+    res.send(val);
+  }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }   
 
     /*let promise = clients.createUser(req.body)    
     promise.then(function(value)
@@ -26,25 +42,93 @@ app.post('/createUser', function (req, res)
 });
 
 app.post('/reactivate', function (req, res)
-{//req.body
-  //console.log("here");
-  //console.log(JSON.stringify(req.body));
-    let val = clients.reactivateUser(req.body)    
+{
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  
+  if(sys == "CIS")
+  {
+    let promise =  clients.getActive(req.body)
+    promise.then(function(value)
+    {
+     // console.log(value);
+      //res.send(value);
+
+      if(value == 0 )
+      {
+        let val = clients.reactivateUser(req.body)  ;
+        //console.log(val);
+        res.send(val);
+      }
+      else if(value == 1)
+      {
+        res.send("Client already active");
+      }
+      else
+      {
+        res.send("cleint does not exist");
+      }
+    })
+  }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }   
     
-    console.log(val);
+   /* let promise =  clients.getActive(req.body)
+    promise.then(function(value)
+    {
+      console.log(value);
+      //res.send(value);
+
+      if(value == false)
+      {
+        let val = clients.reactivateUser(req.body)  ;
+        console.log(val);
+        res.send(val);
+      }
+      else
+      {
+        res.send("Client already active");
+      }
+    })*/
+
+
+    
+   
     
 });
 
 //127.0.0.1:8000/email
-//body {"client_id" : "1"}
+//body {"system":"NS","client_id" : "41"}
 app.post('/email', function (req, res)
 {
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+
+  if(sys == "NS")
+  {
     let promise = clients.getEmail(req.body)    
     promise.then(function(value)
+    {
+      //console.log(value);
+      res.send(value);
+    })
+  }
+  else if(sys != undefined)
   {
-    console.log(value);
-    res.send(value);
-  })
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }
+
+    
 });
 
 
@@ -59,19 +143,35 @@ app.post('/email', function (req, res)
 });*/
 
 //127.0.0.1:8000/clientID
-//body {"client_id" : "1"}
-app.post('/clientID', function (req, res) {
-  //console.log("id: " + JSON.stringify(req.body));
-  let promise = clients.getActive(req.body)
-    promise.then(function(value)
+//body {"system":"CAS","client_id" : "1"}
+app.post('/clientID', function (req, res) 
+{  
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  if(sys == "CAS" || sys == "AUTH" || sys == "FRS" || sys == "CRDS" || sys == "NS")
   {
-    console.log(value);
-    res.send(value);
-  })
+    let promise = clients.getActive(req.body)
+    promise.then(function(value)
+    {
+     // console.log(value);
+     
+      res.send(value);
+    })
+  }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }
+
+  
 }); 
 
 //127.0.0.1:8000/deleteClient
-//body {"client_id" : "1"}
+//body {"system":"CAS","client_id" : "1"}
 app.post('/deleteClient', function (req, res) {
   //console.log("id: " + JSON.stringify(req.body));
 
@@ -89,17 +189,53 @@ app.post('/deleteClient', function (req, res) {
       res.send(value);
     })
   }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
   else
-    res.send(false);  
+  {
+    res.send("access denied: system undefined");
+  } 
 });
 
 app.post('/deleteClientFromInterface', function (req, res)
-{//req.body
-  //console.log("here");
-  //console.log(JSON.stringify(req.body));
-    let val = clients.deleteUserFromInterface(req.body)    
+{
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  
+  if(sys == "CIS")
+  {
+    let promise =  clients.getActive(req.body)
+    promise.then(function(value)
+    {
+      //console.log(value);
+      //res.send(value);
+
+      if(value == false)
+      {
+        let val = clients.reactivateUser(req.body)  ;
+        console.log(val);
+        res.send(val);
+      }
+      else
+      {
+        res.send("Client already active");
+      }
+    })
+  }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }
+
+    /*let val = clients.deleteUserFromInterface(req.body)    
     
-    console.log(val);
+    console.log(val);*/
     
 });
 

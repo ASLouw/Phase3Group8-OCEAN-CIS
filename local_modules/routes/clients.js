@@ -106,21 +106,43 @@ module.exports={
     id = params.client_id;
     system = params.system;
 
-   return databaseInfo.getClientEmailFromDb(id).then(function(value){console.log(value);
-    log = databaseInfo.logGetEmail(id,system);
-     return {email: value}});
+   return databaseInfo.getClientEmailFromDb(id).then(function(value)
+    {
+      console.log(value);
+      if(value != "cleint does not exist")
+      {
+        log = databaseInfo.logGetEmail(id,system);
+        return {email: value}
+      }
+      else
+        return "cleint does not exist";
+    })
+    
   },
   getActive: async function(params) {    
    id = params.client_id;
    system = params.system;
+   /*if(system == undefined)
+    system = "CIS";*/
 
   
   return databaseInfo.getClientActiveFromDb(id).then(function(value){console.log(value);
-    log = databaseInfo.logGetActive(id,system);
-    if(value == "1")
+    
+    if(value == "cleint does not exist")
+    {
+      return "cleint does not exist";
+    }
+    else if(value == "1")
+    {
+      log = databaseInfo.logGetActive(id,system);
       return true;
+    }      
     else
-    return false;
+    {
+      log = databaseInfo.logGetActive(id,system);
+      return false;
+    }
+      
     });  
   },
   reactivateUser: function(params)

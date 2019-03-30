@@ -436,7 +436,7 @@ module.exports = class ClientInfoDB
                 }
             
                 //request.write('{"system" : "CIS","data":['+ logdata+']}');
-                console.log('{"system" : "CIS","data":['+ logdata+']}');  
+                //console.log('{"system" : "CIS","data":['+ logdata+']}');  
 
                 
 

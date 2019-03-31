@@ -5,21 +5,50 @@ const axios = require('axios')
 const app = express()
 const port = 8080;
 
+const os = require('os');
+const ifaces = os.networkInterfaces();
+let ifaceval= null;
+
+app.use(bodyParser.json());
+
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
-app.post('/createUser', function (req, res)
+Object.keys(ifaces).forEach(function (ifname) {
+  var alias = 0;
+
+  ifaces[ifname].forEach(function (iface) {
+    if ('IPv4' !== iface.family || iface.internal !== false) {
+      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+      return;
+    }
+
+    if (alias >= 1) {
+      // this single interface has multiple ipv4 addresses
+      console.log(ifname + ':' + alias, iface.address);
+    } else {
+      // this interface has only one ipv4 adress
+      console.log(ifname, iface.address);
+      ifaceval = iface.address;
+    }
+    ++alias;
+  });
+});
+
+app.post('/getsubscription', function (req, res)
 {
 
-  let body = JSON.parse(JSON.stringify(req.body));
+  let body = req.body;
   console.log(body);
+  res.send("value recieved: "+body.id)
 });
 
 app.get('/subscribe', function (req, res)
 {
-  axios.post("localhost:8000", {"URL":"https:localhost:8080"}).catch(function(error) {
-    console.log(error);
+  axios.post("localhost:8000", JSON.stringify({"URL":ifaceval+":8080/getsubscription"})).then(function(value){
+    res.send("helo");
+  }).catch(function(error) {
+    res.send(error);
   });
-  res.send("posting to localhost:8000");
 });
 
 module.exports.app = app;

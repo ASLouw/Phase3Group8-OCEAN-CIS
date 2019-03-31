@@ -52,18 +52,20 @@ var listeners = []
   return retVal;
 };*/
 
-function notifyAll(changeObj)
-{
-  var listen={};
-  for (var i=0; i<listeners.length;i++)
-  {
-    listen = listeners[i];
-    console.log("notifying: "+listen);
-    axios.post(listen, changeObj)
-  }
-};
+
 
 module.exports={
+  notifyAll:function(changeObj)
+  {
+    var listen={};
+    for (var i=0; i<listeners.length;i++)
+    {
+      listen = listeners[i];
+      axios.post(listen, JSON.stringify(changeObj)).catch(function (error) {
+        console.log("Could not send the update to this listeners: "+listen);
+      });
+    }
+  },
   createUser: function(params)
   {
     //used with crud

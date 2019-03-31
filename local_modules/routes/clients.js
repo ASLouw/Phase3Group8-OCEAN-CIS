@@ -58,17 +58,21 @@ function notifyAll(changeObj)
   for (var i=0; i<listeners.length;i++)
   {
     listen = listeners[i];
+    console.log("notifying: "+listen);
     axios.post(listen, changeObj)
   }
 };
 
 module.exports={
   createUser: function(params)
-  {    
-    //used with crud 
+  {
+    //used with crud
     id = params.client_id;
     console.log(id);
-    notifyAll({});
+    notifyAll({
+      "ID":id,
+      "Operation":"CREATE"
+    });
     return "Systems notified of client added";
   },
   deleteUser: function(params)
@@ -79,31 +83,33 @@ module.exports={
     //console.log("System: " + system)
 
     /*console.log(id);
-    notifyAll({});
     return "Systems notified of client deleted";*/
 
       return databaseInfo.deleteEntry(id).then(function(value)
       {
           //console.log("Value: " +value);
-  
+
         count = databaseInfo.logDelete(id,system);
-  
+
         //console.log("clients.js: " +count);
-  
+
         if(value == true)
         {
-          notifyAll({});
+          notifyAll({
+            "ID":id,
+            "Operation":"DELETE"
+          });
           return true;
-        } 
-        else if(value == "cleint does not exist")     
+        }
+        else if(value == "cleint does not exist")
           return "cleint does not exist"
         else
           return false;
-      });     
-   
+      });
+
   },
   getEmail: async function(params) {
-    
+
     id = params.client_id;
     system = params.system;
 
@@ -118,17 +124,17 @@ module.exports={
       else
         return "cleint does not exist";
     })
-    
+
   },
-  getActive: async function(params) {    
+  getActive: async function(params) {
    id = params.client_id;
    system = params.system;
    /*if(system == undefined)
     system = "CIS";*/
 
-  
+
   return databaseInfo.getClientActiveFromDb(id).then(function(value){console.log(value);
-    
+
     if(value == "cleint does not exist")
     {
       return "cleint does not exist";
@@ -137,34 +143,40 @@ module.exports={
     {
       log = databaseInfo.logGetActive(id,system);
       return true;
-    }      
+    }
     else
     {
       log = databaseInfo.logGetActive(id,system);
       return false;
     }
-      
-    });  
+
+    });
   },
   reactivateUser: function(params)
   {
     //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
-    notifyAll({});
+    notifyAll({
+      "ID":id,
+      "Operation":"CREATE"
+    });
 
     //console.log("Systems notified of re-activation");
-    return "Systems notified of re-activation";    
+    return "Systems notified of re-activation";
   },
   deleteUserFromInterface: function(params)
   {
     //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
-    notifyAll({});
+    notifyAll({
+      "ID":id,
+      "Operation":"DELETE"
+    });
 
     //console.log("Systems notified of re-activation");
-    return "Systems notified of deletion";    
+    return "Systems notified of deletion";
   },
  subscribe: function(params)
  {

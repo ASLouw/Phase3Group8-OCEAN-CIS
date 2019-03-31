@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Clients</title>
+        <style type="text/css">
+            body 
+            {
+                height: 100%;
+                background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/50598/concrete-wall-background.jpg) center center fixed;
+                background-size: cover;
+            }
+
+            a 
+            {
+                background-color: black;
+                box-shadow: 0 5px 0 darkred;
+                color: white;
+                padding: 1em 1.5em;
+                position: relative;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .results
+            {
+                font-size: 25;
+            }
+
+            a:hover 
+            {
+                background-color: #ce0606;
+                cursor: pointer;
+            }
+
+            a:active 
+            {
+                box-shadow: none;
+                top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Clients</h1>
+        <table style="width:100%" border = "1" class="results">
+            <tr>
+                <th>Client ID</th>
+                <th>Client Name</th> 
+                <th>Client Surname</th>
+                <th>Method of Notification</th>
+                <th>Active</th> 
+                <th>Cell Number</th>
+                <th>Email</th> 
+                <th>Home Address</th>
+            </tr>
+            <% for(var i=0; i<contacts.length; i++) {%>
+            <tr class="results">
+                <td><%= contacts[i].client_id %></td>
+                <td><%= contacts[i].client_name %></td>
+                <td><%= contacts[i].client_surname %></td>
+                <td><%= contacts[i].method_of_notification %></td>
+                <td><%= contacts[i].active %></td>
+                <td><%= contacts[i].cell_number %></td>
+                <td><%= contacts[i].email %></td>
+                <td><%= contacts[i].home_address %></td>
+            </tr>
+            <% } %>
+        </table>
+        </br>
+        <table>
+            <tr>
+                <td><a href="/display">Display All</a></td>
+                <td><a href="/displayAct">Display Active</a></td>
+                <td><a href="/displayInact">Display Inactive</a></td>
+                <td><a href="/">Insert</a></td>
+                <td><a href="/update">Update</td>
+                <td><a href="/search">Search</a></td>
+                <td><a href="/delete">Delete</a></td>
+                <td><a href="/reactivate">Re-Activate </a></td>
+            </tr>
+        </table>
+    </body>
+</html>

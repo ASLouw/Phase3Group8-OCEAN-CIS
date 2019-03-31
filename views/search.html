@@ -1,0 +1,30 @@
+<html>
+	<head> 
+		<title>Basic Search</title> 
+		<link rel="stylesheet" type="text/css" href="/views/style.css">
+	</head> 
+	<body> 
+		<form method=get action=searchInfo>
+			<h1>Please enter client to search for</h1> 
+			<p>
+				<label>Client ID: </label>
+				<input type = "text" name = "clID" required>
+			</p>
+			<p class="wipeout">
+	            <input type="submit" value="Search" />
+	        </p>
+		</form>
+		
+		<table>
+			<tr>
+				<td><a href="/display">Display All</a></td>
+				<td><a href="/displayAct">Display Active</a></td>
+                <td><a href="/displayInact">Display Inactive</a></td>
+				<td><a href="/">Insert</a></td>
+				<td><a href="/update">Update</a></td>
+			    <td><a href="/delete">Delete</a></td>
+				<td><a href="/reactivate">Re-Activate </a></td>
+			</tr>
+		</table>
+	</body>
+</html>

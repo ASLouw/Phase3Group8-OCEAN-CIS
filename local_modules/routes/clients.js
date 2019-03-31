@@ -90,12 +90,13 @@ module.exports={
   
         //console.log("clients.js: " +count);
   
-  
         if(value == true)
         {
           notifyAll({});
           return true;
-        }      
+        } 
+        else if(value == "cleint does not exist")     
+          return "cleint does not exist"
         else
           return false;
       });     

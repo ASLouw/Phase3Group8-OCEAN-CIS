@@ -67,14 +67,20 @@ module.exports = class ClientInfoDB
 
             //console.log("Delete client: " + JSON.stringify(deleteClient));
 
-            if (deleteClient.changedRows > 0)
+            if(deleteClient.changedRows>0)
             {
-              return true
+                if (deleteClient.changedRows > 0)
+                {
+                return true
+                }
+                else
+                {
+                return false;
+                }
             }
             else
-            {
-             return false;
-            }
+                return "cleint does not exist";
+            
         }
         catch(exception)
         {

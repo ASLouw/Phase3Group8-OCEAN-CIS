@@ -189,6 +189,178 @@ describe('POST /clientID', ()=> {
     }).timeout(5000)
 })
 
+describe('POST /deleteClientFromInterface', ()=> {
+    it('should get success flag true with body: Client already deleted',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("Client already deleted");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: Systems notified of deletion',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"61"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("Systems notified of deletion");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: cleint does not exist',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"10"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("cleint does not exist");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: specified system does not have access to this request',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CAS","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: specified system does not have access to this request");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: system undefined',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: system undefined");                
+            })
+            .end(done);
+    }).timeout(5000)
+})
+//will not delete
+describe('POST /deleteClientFromInterface', ()=> {
+    it('should get success flag true with body: Client already deleted',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("Client already deleted");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: Systems notified of deletion',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"61"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("Systems notified of deletion");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: cleint does not exist',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CIS","client_id":"10"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("cleint does not exist");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: specified system does not have access to this request',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"system":"CAS","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: specified system does not have access to this request");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: system undefined',(done) =>{
+        request(app)
+            .post('/deleteClientFromInterface')
+            .send({"client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: system undefined");                
+            })
+            .end(done);
+    }).timeout(5000)
+})
+
+describe('POST /deleteClient', ()=> {
+    it('should get success flag true with body: Client already deleted',(done) =>{
+        request(app)
+            .post('/deleteClient')
+            .send({"system":"AUTH","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("Client already deleted");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: Systems notified of deletion',(done) =>{
+        request(app)
+            .post('/deleteClient')
+            .send({"system":"AUTH","client_id":"61"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.body).toBe(true);                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with body: cleint does not exist',(done) =>{
+        request(app)
+            .post('/deleteClient')
+            .send({"system":"AUTH","client_id":"10"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("cleint does not exist");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: specified system does not have access to this request',(done) =>{
+        request(app)
+            .post('/deleteClient')
+            .send({"system":"CAS","client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: specified system does not have access to this request");                
+            })
+            .end(done);
+    }).timeout(5000)
+
+    it('should get success flag true with text: access denied: system undefined',(done) =>{
+        request(app)
+            .post('/deleteClient')
+            .send({"client_id":"1"})
+            .expect(200)
+            .expect((res)=>{
+                expect(res.text).toEqual("access denied: system undefined");                
+            })
+            .end(done);
+    }).timeout(5000)
+})
+
+
 describe('POST /subscribe', ()=> {
     it('should get success flag true',(done) =>{
         request(app)

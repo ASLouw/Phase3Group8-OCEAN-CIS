@@ -175,9 +175,52 @@ app.post('/clientID', function (req, res)
 app.post('/deleteClient', function (req, res) {
   //console.log("id: " + JSON.stringify(req.body));
 
+  let body = JSON.parse(JSON.stringify(req.body));
+  let sys = body.system
+  
+  if(sys == "AUTH")
+  {
+    let promise =  clients.getActive(req.body)
+    promise.then(function(value)
+    {
+      //console.log(value);
+      //res.send(value);
+
+      if(value == true)
+      {
+        let promise = clients.deleteUser(req.body)  
+        promise.then(function(val)
+        {
+          //console.log(value);
+          res.send(val);
+        })
+        //console.log(val);
+        //res.send(val);
+      }
+      else if(value == "cleint does not exist" )
+      {
+        res.send("cleint does not exist");
+      }
+      else
+      {
+        res.send("Client already deleted");
+      }
+    })
+  }
+  else if(sys != undefined)
+  {
+    res.send("access denied: specified system does not have access to this request");
+  }
+  else
+  {
+    res.send("access denied: system undefined");
+  }
+  
+
+
   //let val = clients.deleteUser(req.body)  ;
   //console.log(val);
-  let body = JSON.parse(JSON.stringify(req.body));
+  /*let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
   //console.log("sys: " + body.system )
   if(sys == 'AUTH')
@@ -196,7 +239,7 @@ app.post('/deleteClient', function (req, res) {
   else
   {
     res.send("access denied: system undefined");
-  } 
+  } */
 });
 
 app.post('/deleteClientFromInterface', function (req, res)
@@ -212,15 +255,19 @@ app.post('/deleteClientFromInterface', function (req, res)
       //console.log(value);
       //res.send(value);
 
-      if(value == false)
+      if(value == true)
       {
-        let val = clients.reactivateUser(req.body)  ;
-        console.log(val);
+        let val = clients.deleteUserFromInterface(req.body)  ;
+        //console.log(val);
         res.send(val);
+      }
+      else if(value == "cleint does not exist" )
+      {
+        res.send("cleint does not exist");
       }
       else
       {
-        res.send("Client already active");
+        res.send("Client already deleted");
       }
     })
   }

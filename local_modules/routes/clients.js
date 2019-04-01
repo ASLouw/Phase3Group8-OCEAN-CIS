@@ -64,50 +64,108 @@ function notifyAll(changeObj)
 
 module.exports={
   createUser: function(params)
-  {
+  {    
+    //used with crud 
+    id = params.client_id;
+    console.log(id);
     notifyAll({});
-    return "user created!"
+    return "Systems notified of client added";
   },
   deleteUser: function(params)
   {
     id = params.client_id;
+    system = params.system;
 
-    return databaseInfo.deleteEntry(id).then(function(value)
-    {
-        //console.log("Value: " +value);
-      if(value == true)
+    //console.log("System: " + system)
+
+    /*console.log(id);
+    notifyAll({});
+    return "Systems notified of client deleted";*/
+
+      return databaseInfo.deleteEntry(id).then(function(value)
       {
-        notifyAll({});
-        return true;
-      }      
-      else
-        return false;
-    });
+          //console.log("Value: " +value);
+  
+        count = databaseInfo.logDelete(id,system);
+  
+        //console.log("clients.js: " +count);
+  
+        if(value == true)
+        {
+          notifyAll({});
+          return true;
+        } 
+        else if(value == "cleint does not exist")     
+          return "cleint does not exist"
+        else
+          return false;
+      });     
+   
   },
   getEmail: async function(params) {
     
     id = params.client_id;
+    system = params.system;
 
-   return databaseInfo.getClientEmailFromDb(id).then(function(value){console.log(value);
-     return {email: value}});
+   return databaseInfo.getClientEmailFromDb(id).then(function(value)
+    {
+      console.log(value);
+      if(value != "cleint does not exist")
+      {
+        log = databaseInfo.logGetEmail(id,system);
+        return {email: value}
+      }
+      else
+        return "cleint does not exist";
+    })
+    
   },
   getActive: async function(params) {    
    id = params.client_id;
+   system = params.system;
+   /*if(system == undefined)
+    system = "CIS";*/
+
   
   return databaseInfo.getClientActiveFromDb(id).then(function(value){console.log(value);
-    if(value == "1")
+    
+    if(value == "cleint does not exist")
+    {
+      return "cleint does not exist";
+    }
+    else if(value == "1")
+    {
+      log = databaseInfo.logGetActive(id,system);
       return true;
+    }      
     else
-    return false;
+    {
+      log = databaseInfo.logGetActive(id,system);
+      return false;
+    }
+      
     });  
   },
-  /*getUsers: function(params){
-    /*
-    TODO link to sql
-    
+  reactivateUser: function(params)
+  {
+    //used with crud
+    //console.log("ID: " +params.client_id);
+    id = params.client_id;
+    notifyAll({});
 
-    return userList;
-  },*/
+    //console.log("Systems notified of re-activation");
+    return "Systems notified of re-activation";    
+  },
+  deleteUserFromInterface: function(params)
+  {
+    //used with crud
+    //console.log("ID: " +params.client_id);
+    id = params.client_id;
+    notifyAll({});
+
+    //console.log("Systems notified of re-activation");
+    return "Systems notified of deletion";    
+  },
  subscribe: function(params)
  {
    console.log(params);

@@ -61,7 +61,7 @@ module.exports={
     for (var i=0; i<listeners.length;i++)
     {
       listen = listeners[i];
-      axios.post(listen, JSON.stringify(changeObj)).catch(function (error) {
+      axios.post(listen, changeObj).catch(function (error) {
         console.log("Could not send the update to this listeners: "+listen);
       });
     }

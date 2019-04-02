@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.listen(port, function functionName() {
   console.log(`App listening on port ${port}!`);
-  //clients.getSubscriptions();
+  clients.getSubscriptions();
 });
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));

@@ -13,7 +13,7 @@ app.listen(port, function functionName() {
   clients.getSubscriptions();
 });
 
-app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
+app.post('/subscribe', (req, res)=>clients.subscribe(req.body, res));
 
 app.get('/update',(req, res)=>res.send(clients.notifyAll({
   "Operation":"UPDATE"

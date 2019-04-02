@@ -8,7 +8,7 @@ module.exports = {
     get_log_count: "SELECT COUNT(transaction_id) as total FROM transactions",
     get_logs: "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions",
     log_delete: "INSERT INTO transactions (client_id, transaction_type) VALUES (?, 'DELETED')",
-    insert_subscription: "INSERT INTO table_listnames VALUES(?,?)",
+    insert_subscription: "INSERT INTO subscriptions VALUES(?,?)",
     get_subscriptions: "SELECT * FROM subscriptions",
-    update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subsystem = ?"
+    update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subscriptions.subsystem = ?"
 }

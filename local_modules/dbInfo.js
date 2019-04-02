@@ -488,13 +488,14 @@ module.exports = class ClientInfoDB
 
     async addSubscription(sys, url)
     {
+      let connection = await dataBaseConnection();
       try
       {
           await connection.query("START TRANSACTION");
           let subscriptions = await connection.query(queries.insert_subscription,[sys,url]);
           await connection.query("COMMIT");
           //clientInfo = JSON.parse(JSON.stringify(clientInfo));
-
+          console.log("adding subscription");
           return "subscription added";
 
       }
@@ -511,6 +512,7 @@ module.exports = class ClientInfoDB
   }
     async getSubscriptions()
     {
+      let connection = await dataBaseConnection();
       try
       {
           await connection.query("START TRANSACTION");
@@ -542,6 +544,7 @@ module.exports = class ClientInfoDB
 
     async updateSubscription(sys, url)
     {
+      let connection = await dataBaseConnection();
       try
       {
           await connection.query("START TRANSACTION");

@@ -180,29 +180,31 @@ module.exports={
     //console.log("Systems notified of re-activation");
     return "Systems notified of deletion";
   },
-  subscribe: function(params)
+  subscribe: function(params, res)
   {
-   console.log(params);
    let i =0
    let updateFlag = false;
    for (;i<listeners.length;i++)
    {
-     if(listeners[i].subsystem == params.subsystem)
+     if(listeners[i].subsystem.localeCompare(params.subsystem) === 0)
      {
-       updateFlag = true;
-       listeners[i].url = params.url;
-       databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
-        return "endpoint changed!"
-      }).catch(function(error){
-        console.log("an error occured while trying to update the listeners");
-      });
+        updateFlag = true;
+        listeners[i].url = params.url;
+        databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
+          console.log("updating client");
+          res.send("endpoint changed!")
+        }).catch(function(error){
+          console.log("an error occured while trying to update the listeners");
+        });
      }
    }
    if(!updateFlag)
    {
      listeners.push(params);
-     databaseInfo.addSubscription(params.subsystem,params.url).then(function(vlaue){
-       return value;
+     return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
+       res.send("subscription added!");
+     }).catch(function(err) {
+       console.log("An error occured when attempting to add a listener");
      })
    }
  },
@@ -210,10 +212,11 @@ module.exports={
   {
     databaseInfo.getSubscriptions().then(function(value)
      {
-       console.log(value);
        if(value != "No subscriptions")
        {
-         listeners = value;
+         for (var i = 0; i < value.length; i++) {
+           listeners.push({subsystem:value[i].subsystem,url:value[i].url})
+         }
        }
      })
 

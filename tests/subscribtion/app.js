@@ -44,11 +44,15 @@ app.post('/getsubscription', function (req, res)
 
 app.get('/subscribe', function (req, res)
 {
-  axios.post("localhost:8000", JSON.stringify({"URL":ifaceval+":8080/getsubscription"})).then(function(value){
-    res.send("helo");
-  }).catch(function(error) {
-    res.send(error);
+  let ip = "{\"URL\":\""+ifaceval+":8080/getsubscription\"}";
+  axios.post(ifaceval+':8000/subscribe', ip)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
   });
+  res.send(ip);
 });
 
 module.exports.app = app;

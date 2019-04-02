@@ -10,7 +10,7 @@
     "mysql2": "latest",
     "nodemon": "latest",
     "promise-mysql": "^3.3.1",
-    "http": "latest"
+    "axios": "^0.18.0"
   },
   "description": "",
   "files": [],

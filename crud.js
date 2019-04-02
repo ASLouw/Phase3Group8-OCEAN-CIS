@@ -186,14 +186,22 @@ app.get('/insertInfo', function (req, res)
 								console.log('{"system" : "CIS","data":['+ logdata+']}');  
 								//request.end();
 
-								var connectA=sql.createConnection(
+								/*var connectA=sql.createConnection(
 									{
 										host : "eu-cdbr-west-02.cleardb.net",
 										user : "bdffef71b5c89d",
 										password : "6e8120b4",
 										database : "heroku_e0c1ec409484908"
+									});*/
+
+									var connectA=sql.createConnection(
+									{
+										host : "localhost",
+										user : "root",
+										password : "",
+										database : "u17140634_cos301_client_information_database"
 									});
-									var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
+									var sqlQ = "DELETE FROM transactions";
 									connectA.query(sqlQ, function(err, resl)
 									{
 										if(err)
@@ -203,7 +211,7 @@ app.get('/insertInfo', function (req, res)
 			
 										else
 										{
-											console.log('Log Success');
+											console.log('Logs Cleared');
 										}
 									});
 									connectA.end();								
@@ -212,30 +220,28 @@ app.get('/insertInfo', function (req, res)
 		    			connect.end();
 		    		}
 
-		    		else
-		    		{
-		    			var connect=sql.createConnection(
-						{
-							host : "eu-cdbr-west-02.cleardb.net",
-							user : "bdffef71b5c89d",
-							password : "6e8120b4",
-							database : "heroku_e0c1ec409484908"
-						});
-		    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
-		    			connect.query(sqlQ, function(err, resl)
-		    			{
-		    				if(err)
-		    				{
-		    					throw err;
-		    				}
+		    		var connect=sql.createConnection(
+					{
+						host : "eu-cdbr-west-02.cleardb.net",
+						user : "bdffef71b5c89d",
+						password : "6e8120b4",
+						database : "heroku_e0c1ec409484908"
+					});
 
-		    				else
-		    				{
-		    					console.log('Log Success');
-		    				}
-		    			});
-		    			connect.end();
-		    		}
+	    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
+	    			connect.query(sqlQ, function(err, resl)
+	    			{
+	    				if(err)
+	    				{
+	    					throw err;
+	    				}
+
+	    				else
+	    				{
+	    					console.log('Log Success');
+	    				}
+	    			});
+	    			connect.end();
 		    	}
 		    });
 		    conn.end();
@@ -352,14 +358,22 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 										console.log('{"system" : "CIS","data":['+ logdata+']}');  
 										//request.end();
 
-										var connectA=sql.createConnection(
+										/*var connectA=sql.createConnection(
 										{
 											host : "eu-cdbr-west-02.cleardb.net",
 											user : "bdffef71b5c89d",
 											password : "6e8120b4",
 											database : "heroku_e0c1ec409484908"
+										});*/
+
+										var connectA=sql.createConnection(
+										{
+											host : "localhost",
+											user : "root",
+											password : "",
+											database : "u17140634_cos301_client_information_database"
 										});
-										var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
+										var sqlQ = "DELETE FROM transactions";
 										connectA.query(sqlQ, function(err, resl)
 										{
 											if(err)
@@ -369,7 +383,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 				
 											else
 											{
-												console.log('Log Success');
+												console.log('Logs Cleared');
 											}
 										});
 										connectA.end();		
@@ -378,30 +392,27 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 				    			connect.end();
 				    		}
 
-				    		else
-				    		{
-				    			var connect=sql.createConnection(
-								{
-									host : "eu-cdbr-west-02.cleardb.net",
-									user : "bdffef71b5c89d",
-									password : "6e8120b4",
-									database : "heroku_e0c1ec409484908"
-								});
-				    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
-				    			connect.query(sqlQ, function(err, resl)
-				    			{
-				    				if(err)
-				    				{
-				    					throw err;
-				    				}
+				    		var connect=sql.createConnection(
+							{
+								host : "eu-cdbr-west-02.cleardb.net",
+								user : "bdffef71b5c89d",
+								password : "6e8120b4",
+								database : "heroku_e0c1ec409484908"
+							});
+			    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+result.insertId+"', 'INSERT')";
+			    			connect.query(sqlQ, function(err, resl)
+			    			{
+			    				if(err)
+			    				{
+			    					throw err;
+			    				}
 
-				    				else
-				    				{
-				    					console.log('Log Success');
-				    				}
-				    			});
-				    			connect.end();
-				    		}
+			    				else
+			    				{
+			    					console.log('Log Success');
+			    				}
+			    			});
+			    			connect.end();
 				    	}
 				    });
 				    conn.end();
@@ -615,56 +626,61 @@ app.get('/updateinfo', function (req, res)
 													console.log('{"system" : "CIS","data":['+ logdata+']}');  
 													//request.end();
 
+													/*var connectA=sql.createConnection(
+													{
+														host : "eu-cdbr-west-02.cleardb.net",
+														user : "bdffef71b5c89d",
+														password : "6e8120b4",
+														database : "heroku_e0c1ec409484908"
+													});*/
+
 													var connectA=sql.createConnection(
+													{
+														host : "localhost",
+														user : "root",
+														password : "",
+														database : "u17140634_cos301_client_information_database"
+													});
+													var sqlQ = "DELETE FROM transactions";
+													connectA.query(sqlQ, function(err, resl)
+													{
+														if(err)
 														{
-															host : "eu-cdbr-west-02.cleardb.net",
-															user : "bdffef71b5c89d",
-															password : "6e8120b4",
-															database : "heroku_e0c1ec409484908"
-														});
-														var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'UPDATED')";
-														connectA.query(sqlQ, function(err, resl)
+															throw err;
+														}
+							
+														else
 														{
-															if(err)
-															{
-																throw err;
-															}
-								
-															else
-															{
-																console.log('Log Success');
-															}
-														});
-														connectA.end();		
+															console.log('Logs Cleared');
+														}
+													});
+													connectA.end();			
 							    				}
 							    			});
 							    			connect.end();
 							    		}
 
-							    		else
-							    		{
-							    			var connect=sql.createConnection(
-											{
-												host : "eu-cdbr-west-02.cleardb.net",
-												user : "bdffef71b5c89d",
-												password : "6e8120b4",
-												database : "heroku_e0c1ec409484908"
-											});
-							    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'UPDATED')";
-							    			connect.query(sqlQ, function(err, resl)
-							    			{
-							    				if(err)
-							    				{
-							    					throw err;
-							    				}
+							    		var connect=sql.createConnection(
+										{
+											host : "eu-cdbr-west-02.cleardb.net",
+											user : "bdffef71b5c89d",
+											password : "6e8120b4",
+											database : "heroku_e0c1ec409484908"
+										});
+						    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'UPDATED')";
+						    			connect.query(sqlQ, function(err, resl)
+						    			{
+						    				if(err)
+						    				{
+						    					throw err;
+						    				}
 
-							    				else
-							    				{
-							    					console.log('Log Success');
-							    				}
-							    			});
-							    			connect.end();
-							    		}
+						    				else
+						    				{
+						    					console.log('Log Success');
+						    				}
+						    			});
+						    			connect.end();
 							    	}
 							    });
 							    conn.end();
@@ -804,57 +820,62 @@ app.get('/deleteinfo', function (req, res)
 												  //request.write('{"system" : "CIS","data":['+ logdata+']}');
 												  console.log('{"system" : "CIS","data":['+ logdata+']}');  
 												  //request.end();
+
+												/*var connectA=sql.createConnection(
+												{
+													host : "eu-cdbr-west-02.cleardb.net",
+													user : "bdffef71b5c89d",
+													password : "6e8120b4",
+													database : "heroku_e0c1ec409484908"
+												});*/
 				  
-												  var connectA=sql.createConnection(
-													  {
-														  host : "eu-cdbr-west-02.cleardb.net",
-														  user : "bdffef71b5c89d",
-														  password : "6e8120b4",
-														  database : "heroku_e0c1ec409484908"
-													  });
-													  var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'DELETED')";
-													  connectA.query(sqlQ, function(err, resl)
-													  {
-														  if(err)
-														  {
-															  throw err;
-														  }
-							  
-														  else
-														  {
-															  console.log('Log Success');
-														  }
-													  });
-													  connectA.end();		
+											  	var connectA=sql.createConnection(
+												{
+													host : "localhost",
+													user : "root",
+													password : "",
+													database : "u17140634_cos301_client_information_database"
+												});
+												var sqlQ = "DELETE FROM transactions";
+												connectA.query(sqlQ, function(err, resl)
+												{
+													if(err)
+													{
+														throw err;
+													}
+						
+													else
+													{
+														console.log('Logs Cleared');
+													}
+												});
+												connectA.end();				
 						    				}
 						    			});
 						    			connect.end();
 						    		}
 
-						    		else
-						    		{
-						    			var connect=sql.createConnection(
-										{
-											host : "eu-cdbr-west-02.cleardb.net",
-											user : "bdffef71b5c89d",
-											password : "6e8120b4",
-											database : "heroku_e0c1ec409484908"
-										});
-						    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'DELETED')";
-						    			connect.query(sqlQ, function(err, resl)
-						    			{
-						    				if(err)
-						    				{
-						    					throw err;
-						    				}
+						    		var connect=sql.createConnection(
+									{
+										host : "eu-cdbr-west-02.cleardb.net",
+										user : "bdffef71b5c89d",
+										password : "6e8120b4",
+										database : "heroku_e0c1ec409484908"
+									});
+					    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'DELETED')";
+					    			connect.query(sqlQ, function(err, resl)
+					    			{
+					    				if(err)
+					    				{
+					    					throw err;
+					    				}
 
-						    				else
-						    				{
-						    					console.log('Log Success');
-						    				}
-						    			});
-						    			connect.end();
-						    		}
+					    				else
+					    				{
+					    					console.log('Log Success');
+					    				}
+					    			});
+					    			connect.end();
 						    	}
 						    });
 						    conn.end();
@@ -1012,59 +1033,63 @@ app.get('/reactivateInfo', function (req, res)
 												  //request.write('{"system" : "CIS","data":['+ logdata+']}');
 												  console.log('{"system" : "CIS","data":['+ logdata+']}');  
 												  //request.end();
+
+												/*var connectA=sql.createConnection(
+												{
+													host : "eu-cdbr-west-02.cleardb.net",
+													user : "bdffef71b5c89d",
+													password : "6e8120b4",
+													database : "heroku_e0c1ec409484908"
+												});*/
 				  
-												  var connectA=sql.createConnection(
-													  {
-														  host : "eu-cdbr-west-02.cleardb.net",
-														  user : "bdffef71b5c89d",
-														  password : "6e8120b4",
-														  database : "heroku_e0c1ec409484908"
-													  });
-													  var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'REACTIVATED')";
-													  connectA.query(sqlQ, function(err, resl)
-													  {
-														  if(err)
-														  {
-															  throw err;
-														  }
-							  
-														  else
-														  {
-															  console.log('Log Success');
-														  }
-													  });
-													  connectA.end();	
-												
+												var connectA=sql.createConnection(
+												{
+													host : "localhost",
+													user : "root",
+													password : "",
+													database : "u17140634_cos301_client_information_database"
+												});
+												var sqlQ = "DELETE FROM transactions";
+												connectA.query(sqlQ, function(err, resl)
+												{
+													if(err)
+													{
+														throw err;
+													}
+						
+													else
+													{
+														console.log('Logs Cleared');
+													}
+												});
+												connectA.end();		
 						    				}
 						    			});
 						    			connect.end();
 						    		}
 
-						    		else
-						    		{
-						    			var connect=sql.createConnection(
-										{
-											host : "eu-cdbr-west-02.cleardb.net",
-											user : "bdffef71b5c89d",
-											password : "6e8120b4",
-											database : "heroku_e0c1ec409484908"
-										});
-						    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'REACTIVATED')";
-						    			connect.query(sqlQ, function(err, resl)
-						    			{
-						    				if(err)
-						    				{
-						    					throw err;
-						    				}
+									var connect=sql.createConnection(
+									{
+										host : "eu-cdbr-west-02.cleardb.net",
+										user : "bdffef71b5c89d",
+										password : "6e8120b4",
+										database : "heroku_e0c1ec409484908"
+									});
+					    			var sqlQ = "INSERT INTO transactions (client_id, transaction_type) VALUES ('"+req.query.clID+"', 'REACTIVATED')";
+					    			connect.query(sqlQ, function(err, resl)
+					    			{
+					    				if(err)
+					    				{
+					    					throw err;
+					    				}
 
-						    				else
-						    				{
-						    					console.log('Log Success');
-						    				}
-						    			});
-						    			connect.end();
-						    		}
-						    	}
+					    				else
+					    				{
+					    					console.log('Log Success');
+					    				}
+					    			});
+					    			connect.end();
+					    	}
 						    });
 						    conn.end();
 							console.log("success");

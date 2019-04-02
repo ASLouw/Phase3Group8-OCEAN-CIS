@@ -10,5 +10,6 @@ module.exports = {
     log_delete: "INSERT INTO transactions (client_id, transaction_type) VALUES (?, 'DELETED')",
     insert_subscription: "INSERT INTO subscriptions VALUES(?,?)",
     get_subscriptions: "SELECT * FROM subscriptions",
-    update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subscriptions.subsystem = ?"
+    update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subscriptions.subsystem = ?",
+    delete_logs:"DELETE FROM transactions"
 }

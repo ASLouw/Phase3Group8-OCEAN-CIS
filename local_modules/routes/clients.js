@@ -71,7 +71,7 @@ module.exports={
     //used with crud
     id = params.client_id;
     console.log(id);
-    notifyAll({
+    module.exports.notifyAll({
       "ID":id,
       "Operation":"CREATE"
     });
@@ -97,7 +97,7 @@ module.exports={
 
         if(value == true)
         {
-          notifyAll({
+          module.exports.notifyAll({
             "ID":id,
             "Operation":"DELETE"
           });
@@ -159,7 +159,7 @@ module.exports={
     //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
-    notifyAll({
+    module.exports.notifyAll({
       "ID":id,
       "Operation":"CREATE"
     });
@@ -172,7 +172,7 @@ module.exports={
     //used with crud
     //console.log("ID: " +params.client_id);
     id = params.client_id;
-    notifyAll({
+    module.exports.notifyAll({
       "ID":id,
       "Operation":"DELETE"
     });

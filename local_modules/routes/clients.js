@@ -62,7 +62,8 @@ module.exports={
     {
       listen = listeners[i];
       axios.post(listen.url, changeObj).catch(function (error) {
-        console.log("Could not send the update to this listeners: "+listen.url);
+        console.log("Could not send the update to this listeners: "+listen.url  );
+        console.log(error);
       });
     }
   },
@@ -191,7 +192,6 @@ module.exports={
         updateFlag = true;
         listeners[i].url = params.url;
         databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
-          console.log("updating client");
           res.send("endpoint changed!")
         }).catch(function(error){
           console.log("an error occured while trying to update the listeners");

@@ -548,7 +548,7 @@ module.exports = class ClientInfoDB
       try
       {
           await connection.query("START TRANSACTION");
-          let subscriptions = await connection.query(queries.get_subscriptions,[url,sys]);
+          let subscriptions = await connection.query(queries.update_subscription,[url,sys]);
           await connection.query("COMMIT");
           //clientInfo = JSON.parse(JSON.stringify(clientInfo));
 

@@ -16,9 +16,6 @@
   "files": [],
   "main": "server.js",
   "name": "node",
-  "scripts": {
-    "test": "mocha app.test.js"
-  },
   "engines": {
     "node": "8.x"
   },

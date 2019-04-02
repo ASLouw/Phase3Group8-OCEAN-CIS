@@ -1,7 +1,7 @@
 //dependencies
 const express = require('express');
 const clients = require('./local_modules/routes/clients');
-const logs = require('./local_modules/routes/logs');
+//const logs = require('./local_modules/routes/logs');
 const bodyParser = require('body-parser')
 const app = express()
 const port = 8000;

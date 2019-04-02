@@ -185,27 +185,34 @@ module.exports={
   {
    let i =0
    let updateFlag = false;
-   for (;i<listeners.length;i++)
+   if(params.url !=null && params.subsystem != null && params.url != "" && params.subsystem != "")
    {
-     if(listeners[i].subsystem.localeCompare(params.subsystem) === 0)
-     {
-        updateFlag = true;
-        listeners[i].url = params.url;
-        databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
-          res.send("endpoint changed!")
-        }).catch(function(error){
-          console.log("an error occured while trying to update the listeners");
-        });
-     }
+       for (;i<listeners.length;i++)
+       {
+         if(listeners[i].subsystem.localeCompare(params.subsystem) === 0)
+         {
+            updateFlag = true;
+            listeners[i].url = params.url;
+            res.send("endpoint changed!")
+            databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
+            }).catch(function(error){
+              console.log("an error occured while trying to update the listeners");
+            });
+         }
+       }
+       if(!updateFlag)
+       {
+         listeners.push(params);
+         return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
+           res.send("subscription added!");
+         }).catch(function(err) {
+           console.log("An error occured when attempting to add a listener");
+         })
+       }
    }
-   if(!updateFlag)
+   else
    {
-     listeners.push(params);
-     return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
-       res.send("subscription added!");
-     }).catch(function(err) {
-       console.log("An error occured when attempting to add a listener");
-     })
+      res.send("Body missing values");
    }
  },
   getSubscriptions: function()

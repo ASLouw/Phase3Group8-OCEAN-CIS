@@ -15,7 +15,7 @@
   "main": "server.js",
   "name": "node",
   "scripts": {
-    "test": "mocha app.test.js"
+    "test": "mocha app.test.js --exit"
   },
   "engines": {
     "node": "8.x"

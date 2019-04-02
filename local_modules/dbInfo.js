@@ -1,6 +1,6 @@
 const dataBaseConnection = require("./dbConnection");
 const queries = require("./queries");
-var http = require('http');
+const axios = require('axios')
 
 module.exports = class ClientInfoDB
 {
@@ -210,45 +210,25 @@ module.exports = class ClientInfoDB
 
             if (count > 100)
             {
-
-                //console.log("SYSTEm: " +sys)
                 await connection.query("START TRANSACTION");
 
                 let logs = await connection.query(queries.get_logs);
 
                 await connection.query("COMMIT");
 
-                logs = JSON.parse(JSON.stringify(logs));
+                logs = JSON.parse(JSON.stringify(logs));                
 
-                //console.log(logs);
-
-                /*var options = {
-                    host: '127.0.0.1',
-                    path: '/createUser',
-                    port: '8000',
-                    method: 'POST',
-                    headers : {'Content-Type': 'application/json'}
-                };
-
-                var request = http.request(options);
-
-                request.on('error', function(e) {
-                console.log('problem with request: ' + e.message);
-                });*/
-
-
-
-                let logdata ='{"transaction_id":"'+logs[0].transaction_id+'","client_id":"'+logs[0].client_id+'","transaction_type":"'+logs[0].transaction_type+'","timestamp":"'+logs[0].timestamp+'"}';
-
-                for(let a = 1; a <= 100; a++)
-                {
-                    logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
-                }
-
-                //request.write('{"system" : "CIS","data":['+ logdata+']}');
-                console.log('{"system" : "CIS","data":['+ logdata+']}');
-
-
+                let logdata ='[{"client_id":"'+logs[0].client_id+'","transaction_id":"'+logs[0].transaction_id+'","timestamp":"'+logs[0].timestamp+'","transaction_type":"'+logs[0].transaction_type+'"}';
+                // console.log(logdata);
+                 for(let a = 1; a <= 100; a++)
+                 {
+                     logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
+                 }
+                 logdata += "]";
+ 
+                axios.post("https://fnbreports-6455.nodechef.com/api", { system: "CIS", data: logdata}).then( function (response){console.log(response.data)}).catch(function (error) {
+                     console.log("Could not send the update to this listeners: "+"https://fnbreports-6455.nodechef.com/api" +" \n error: " + error);
+                }) ;                 
 
                 await connection.query("START TRANSACTION");
 
@@ -256,9 +236,8 @@ module.exports = class ClientInfoDB
 
                 await connection.query("COMMIT");
 
-                del = JSON.parse(JSON.stringify(del));
-                //console.log(logs);
-
+                del = JSON.parse(JSON.stringify(del));    
+                
                 console.log("Logged delete");
             }
             else
@@ -318,34 +297,17 @@ module.exports = class ClientInfoDB
 
                 logs = JSON.parse(JSON.stringify(logs));
 
-                //console.log(logs);
-
-                /*var options = {
-                    host: '127.0.0.1',
-                    path: '/createUser',
-                    port: '8000',
-                    method: 'POST',
-                    headers : {'Content-Type': 'application/json'}
-                };
-
-                var request = http.request(options);
-
-                request.on('error', function(e) {
-                console.log('problem with request: ' + e.message);
-                });*/
-
-
-
-                let logdata ='{"transaction_id":"'+logs[0].transaction_id+'","client_id":"'+logs[0].client_id+'","transaction_type":"'+logs[0].transaction_type+'","timestamp":"'+logs[0].timestamp+'"}';
-
-                for(let a = 1; a <= 100; a++)
-                {
-                    logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
-                }
-
-                //request.write('{"system" : "CIS","data":['+ logdata+']}');
-                console.log('{"system" : "CIS","data":['+ logdata+']}');
-
+                let logdata ='[{"client_id":"'+logs[0].client_id+'","transaction_id":"'+logs[0].transaction_id+'","timestamp":"'+logs[0].timestamp+'","transaction_type":"'+logs[0].transaction_type+'"}';
+                // console.log(logdata);
+                 for(let a = 1; a <= 100; a++)
+                 {
+                     logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
+                 }
+                 logdata += "]";
+ 
+                axios.post("https://fnbreports-6455.nodechef.com/api", { system: "CIS", data: logdata}).then( function (response){console.log(response.data)}).catch(function (error) {
+                     console.log("Could not send the update to this listeners: "+"https://fnbreports-6455.nodechef.com/api" +" \n error: " + error);
+                }) ;  
 
 
                 await connection.query("START TRANSACTION");
@@ -416,33 +378,17 @@ module.exports = class ClientInfoDB
 
                 logs = JSON.parse(JSON.stringify(logs));
 
-                //console.log(logs);
-
-                /*var options = {
-                    host: '127.0.0.1',
-                    path: '/createUser',
-                    port: '8000',
-                    method: 'POST',
-                    headers : {'Content-Type': 'application/json'}
-                };
-
-                var request = http.request(options);
-
-                request.on('error', function(e) {
-                console.log('problem with request: ' + e.message);
-                });*/
-
-
-
-                let logdata ='{"transaction_id":"'+logs[0].transaction_id+'","client_id":"'+logs[0].client_id+'","transaction_type":"'+logs[0].transaction_type+'","timestamp":"'+logs[0].timestamp+'"}';
-
-                for(let a = 1; a <= 100; a++)
-                {
-                    logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
-                }
-
-                //request.write('{"system" : "CIS","data":['+ logdata+']}');
-                //console.log('{"system" : "CIS","data":['+ logdata+']}');
+                let logdata ='[{"client_id":"'+logs[0].client_id+'","transaction_id":"'+logs[0].transaction_id+'","timestamp":"'+logs[0].timestamp+'","transaction_type":"'+logs[0].transaction_type+'"}';
+                // console.log(logdata);
+                 for(let a = 1; a <= 100; a++)
+                 {
+                     logdata += ',{"transaction_id":"'+logs[a].transaction_id+'","client_id":"'+logs[a].client_id+'","transaction_type":"'+logs[a].transaction_type+'","timestamp":"'+logs[a].timestamp+'"}';
+                 }
+                 logdata += "]";
+ 
+                axios.post("https://fnbreports-6455.nodechef.com/api", { system: "CIS", data: logdata}).then( function (response){console.log(response.data)}).catch(function (error) {
+                     console.log("Could not send the update to this listeners: "+"https://fnbreports-6455.nodechef.com/api" +" \n error: " + error);
+                }) ;  
 
 
 

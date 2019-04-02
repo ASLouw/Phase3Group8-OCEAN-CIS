@@ -61,8 +61,9 @@ module.exports={
     for (var i=0; i<listeners.length;i++)
     {
       listen = listeners[i];
-      axios.post(listen, changeObj).catch(function (error) {
-        console.log("Could not send the update to this listeners: "+listen);
+      axios.post(listen.url, changeObj).catch(function (error) {
+        console.log("Could not send the update to this listeners: "+listen.url  );
+        console.log(error);
       });
     }
   },
@@ -180,10 +181,51 @@ module.exports={
     //console.log("Systems notified of re-activation");
     return "Systems notified of deletion";
   },
- subscribe: function(params)
- {
-   console.log(params);
-   listeners.push(params.URL);
-   return "subscribed!";
- }
+  subscribe: function(params, res)
+  {
+   let i =0
+   let updateFlag = false;
+   if(params.url !=null && params.subsystem != null && params.url != "" && params.subsystem != "")
+   {
+       for (;i<listeners.length;i++)
+       {
+         if(listeners[i].subsystem.localeCompare(params.subsystem) === 0)
+         {
+            updateFlag = true;
+            listeners[i].url = params.url;
+            res.send("endpoint changed!")
+            databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
+            }).catch(function(error){
+              console.log("an error occured while trying to update the listeners");
+            });
+         }
+       }
+       if(!updateFlag)
+       {
+         listeners.push(params);
+         return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
+           res.send("subscription added!");
+         }).catch(function(err) {
+           console.log("An error occured when attempting to add a listener");
+         })
+       }
+   }
+   else
+   {
+      res.send("Body missing values");
+   }
+ },
+  getSubscriptions: function()
+  {
+    databaseInfo.getSubscriptions().then(function(value)
+     {
+       if(value != "No subscriptions")
+       {
+         for (var i = 0; i < value.length; i++) {
+           listeners.push({subsystem:value[i].subsystem,url:value[i].url})
+         }
+       }
+     })
+
+  }
 }

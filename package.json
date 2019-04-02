@@ -9,15 +9,14 @@
     "multer": "^1.4.1",
     "mysql2": "latest",
     "nodemon": "latest",
-    "promise-mysql": "^3.3.1",
-    "http": "latest"
+    "promise-mysql": "^3.3.1"
   },
   "description": "",
   "files": [],
   "main": "server.js",
   "name": "node",
   "scripts": {
-    "test": "mocha app.test.js --exit"
+    "test": "mocha app.test.js"
   },
   "engines": {
     "node": "8.x"

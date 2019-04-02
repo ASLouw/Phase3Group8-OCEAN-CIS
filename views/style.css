@@ -5,6 +5,21 @@ body
     background-size: cover;
 }
 
+.navbar-nav > li{
+  padding-left:30px;
+  padding-right:30px;
+}
+
+.nav-item
+{
+    color: red;
+}
+
+.results
+{
+    font-size: 25;
+}
+
 form 
 {
    padding: 0px 20px 20px;
@@ -65,7 +80,7 @@ input[type="submit"]:focus
     text-shadow: none;
 }
 
-a 
+/*a 
 {
 	background-color: black;
 	box-shadow: 0 5px 0 darkred;
@@ -86,7 +101,7 @@ a:active
 {
 	box-shadow: none;
 	top: 5px;
-}
+}*/
 
 input,
 textarea 

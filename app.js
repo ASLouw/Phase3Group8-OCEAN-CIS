@@ -12,12 +12,16 @@ app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
 
+app.get('/update',(req, res)=>res.send(clients.notifyAll({
+  "Operation":"UPDATE"
+})));
+
 app.post('/createUser', function (req, res)
 {
 
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
-  
+
   if(sys == "CIS")
   {
     let val = clients.createUser(req.body)  ;
@@ -31,9 +35,9 @@ app.post('/createUser', function (req, res)
   else
   {
     res.send("access denied: system undefined");
-  }   
+  }
 
-    /*let promise = clients.createUser(req.body)    
+    /*let promise = clients.createUser(req.body)
     promise.then(function(value)
   {
     console.log(value);
@@ -45,7 +49,7 @@ app.post('/reactivate', function (req, res)
 {
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
-  
+
   if(sys == "CIS")
   {
     let promise =  clients.getActive(req.body)
@@ -77,8 +81,8 @@ app.post('/reactivate', function (req, res)
   else
   {
     res.send("access denied: system undefined");
-  }   
-    
+  }
+
    /* let promise =  clients.getActive(req.body)
     promise.then(function(value)
     {
@@ -98,9 +102,9 @@ app.post('/reactivate', function (req, res)
     })*/
 
 
-    
-   
-    
+
+
+
 });
 
 //127.0.0.1:8000/email
@@ -112,7 +116,7 @@ app.post('/email', function (req, res)
 
   if(sys == "NS")
   {
-    let promise = clients.getEmail(req.body)    
+    let promise = clients.getEmail(req.body)
     promise.then(function(value)
     {
       //console.log(value);
@@ -128,7 +132,7 @@ app.post('/email', function (req, res)
     res.send("access denied: system undefined");
   }
 
-    
+
 });
 
 
@@ -144,8 +148,8 @@ app.post('/email', function (req, res)
 
 //127.0.0.1:8000/clientID
 //body {"system":"CAS","client_id" : "1"}
-app.post('/clientID', function (req, res) 
-{  
+app.post('/clientID', function (req, res)
+{
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
   if(sys == "CAS" || sys == "AUTH" || sys == "FRS" || sys == "CRDS" || sys == "NS")
@@ -154,7 +158,7 @@ app.post('/clientID', function (req, res)
     promise.then(function(value)
     {
      // console.log(value);
-     
+
       res.send(value);
     })
   }
@@ -167,8 +171,8 @@ app.post('/clientID', function (req, res)
     res.send("access denied: system undefined");
   }
 
-  
-}); 
+
+});
 
 //127.0.0.1:8000/deleteClient
 //body {"system":"CAS","client_id" : "1"}
@@ -177,7 +181,7 @@ app.post('/deleteClient', function (req, res) {
 
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
-  
+
   if(sys == "AUTH")
   {
     let promise =  clients.getActive(req.body)
@@ -188,7 +192,7 @@ app.post('/deleteClient', function (req, res) {
 
       if(value == true)
       {
-        let promise = clients.deleteUser(req.body)  
+        let promise = clients.deleteUser(req.body)
         promise.then(function(val)
         {
           //console.log(value);
@@ -215,7 +219,7 @@ app.post('/deleteClient', function (req, res) {
   {
     res.send("access denied: system undefined");
   }
-  
+
 
 
   //let val = clients.deleteUser(req.body)  ;
@@ -246,7 +250,7 @@ app.post('/deleteClientFromInterface', function (req, res)
 {
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
-  
+
   if(sys == "CIS")
   {
     let promise =  clients.getActive(req.body)
@@ -280,11 +284,10 @@ app.post('/deleteClientFromInterface', function (req, res)
     res.send("access denied: system undefined");
   }
 
-    /*let val = clients.deleteUserFromInterface(req.body)    
-    
+    /*let val = clients.deleteUserFromInterface(req.body)
+
     console.log(val);*/
-    
+
 });
 
 module.exports.app = app;
-

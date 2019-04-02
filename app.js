@@ -8,7 +8,10 @@ const port = 8000;
 
 app.use(bodyParser.json());
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+app.listen(port, function functionName() {
+  console.log(`App listening on port ${port}!`);
+  //clients.getSubscriptions();
+});
 
 app.post('/subscribe', (req, res)=>res.send(clients.subscribe(req.body)));
 

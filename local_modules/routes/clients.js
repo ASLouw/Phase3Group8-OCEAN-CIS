@@ -180,10 +180,42 @@ module.exports={
     //console.log("Systems notified of re-activation");
     return "Systems notified of deletion";
   },
- subscribe: function(params)
- {
+  subscribe: function(params)
+  {
    console.log(params);
-   listeners.push(params.URL);
-   return "subscribed!";
- }
+   let i =0
+   let updateFlag = false;
+   for (;i<listeners.length;i++)
+   {
+     if(listeners[i].subsystem == params.subsystem)
+     {
+       updateFlag = true;
+       listeners[i].url = params.url;
+       databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
+        return "endpoint changed!"
+      }).catch(function(error){
+        console.log("an error occured while trying to update the listeners");
+      });
+     }
+   }
+   if(!updateFlag)
+   {
+     listeners.push(params);
+     databaseInfo.addSubscription(params.subsystem,params.url).then(function(vlaue){
+       return value;
+     })
+   }
+ },
+  getSubscriptions: function()
+  {
+    databaseInfo.getSubscriptions().then(function(value)
+     {
+       console.log(value);
+       if(value != "No subscriptions")
+       {
+         listeners = value;
+       }
+     })
+
+  }
 }

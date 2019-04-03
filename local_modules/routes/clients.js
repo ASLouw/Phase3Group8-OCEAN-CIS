@@ -204,6 +204,7 @@ module.exports={
        {
          listeners.push(params);
          return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
+            databaseInfo.sendSubscriotionInfo(params.url);
            res.send("subscription added!");
          }).catch(function(err) {
            console.log("An error occured when attempting to add a listener");

@@ -584,13 +584,7 @@ module.exports = class ClientInfoDB
     {
       let connection = await dataBaseConnection();
       try
-      {
-        let count = await connection.query(queries.get_log_count);
-
-        await connection.query("COMMIT");
-        count = JSON.parse(JSON.stringify(count));
-        count = count[0].total
-
+      {    
         await connection.query("START TRANSACTION");
 
         let count = await connection.query(queries.get_log_count);

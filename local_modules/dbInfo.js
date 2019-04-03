@@ -517,6 +517,13 @@ module.exports = class ClientInfoDB
       let connection = await dataBaseConnection();
       try
       {
+        await connection.query("START TRANSACTION");
+
+        let count = await connection.query(queries.get_log_count);
+
+        await connection.query("COMMIT");
+        count = JSON.parse(JSON.stringify(count));
+        count = count[0].total
 
         let count = await connection.query(queries.get_log_count);
 
@@ -589,6 +596,14 @@ module.exports = class ClientInfoDB
         count = JSON.parse(JSON.stringify(count));
         count = count[0].total
 
+        await connection.query("START TRANSACTION");
+
+        let count = await connection.query(queries.get_log_count);
+
+        await connection.query("COMMIT");
+        count = JSON.parse(JSON.stringify(count));
+        count = count[0].total
+
         if (count > 100)
         {
 
@@ -635,5 +650,43 @@ module.exports = class ClientInfoDB
           await connection.release();
           await connection.destroy();
       }
+    }
+
+    async sendSubscriotionInfo(url)
+    {
+        let connection = await dataBaseConnection();
+        try
+        {
+            await connection.query("START TRANSACTION");
+            let logs = await connection.query(queries.get_1000_logs);
+            await connection.query("COMMIT");
+
+            logs = JSON.parse(JSON.stringify(logs));
+
+            let ids = '{"Operation":"subscribed","ID":["'+logs[0].client_id+'"';
+            // console.log(logdata);
+             for(let a = 1; a <= 1000; a++)
+             {
+                ids += ',"'+logs[a].client_id+'"';
+             }
+             ids += "]}";
+            // console.log("Id's: " +ids+ "\n") ;
+             ids = JSON.parse(ids);
+             //console.log(ids);
+         
+             axios.post(url, ids).then( function (response){console.log(response.data)}).catch(function (error) {
+                  console.log("Could not send the subscription to this listeners: "+url +" \n error: " + error);
+             }) ;  
+        }
+        catch(exception)
+        {
+            console.log(exception);
+            throw exception;
+        }
+        finally
+        {
+            await connection.release();
+            await connection.destroy();
+        }
     }
 };

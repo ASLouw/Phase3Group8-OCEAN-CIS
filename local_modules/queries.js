@@ -7,9 +7,10 @@ module.exports = {
     get_cleintActive: "SELECT active FROM clientinfo WHERE clientinfo.client_id = ?",
     get_log_count: "SELECT COUNT(transaction_id) as total FROM transactions",
     get_logs: "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions",
-    log_delete: "INSERT INTO transactions (client_id, transaction_type) VALUES (?, 'DELETED')",
+    log_delete: "INSERT INTO transactions (client_id, transaction_type) VALUES (?, ?)",
     insert_subscription: "INSERT INTO subscriptions VALUES(?,?)",
     get_subscriptions: "SELECT * FROM subscriptions",
     update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subscriptions.subsystem = ?",
-    delete_logs:"DELETE FROM transactions"
+    delete_logs:"DELETE FROM transactions",
+    get_1000_logs:"SELECT top 1000 * FROM transactions"
 }

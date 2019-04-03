@@ -106,9 +106,8 @@ app.get('/insertInfo', function (req, res)
 		{
 			//console.log(result.insertId);
 			var options = {
-				host: '127.0.0.1',
+				host: 'https://cos301-ocean-cis-api.herokuapp.com',
 				path: '/createUser',
-				port: '8000',
 				method: 'POST',
 				headers : {'Content-Type': 'application/json'}
 			};
@@ -180,21 +179,21 @@ app.get('/insertInfo', function (req, res)
 								//console.log('{"system" : "CIS","data":['+ logdata+']}');  
 								
 
-								/*var connectA=sql.createConnection(
+								var connectA=sql.createConnection(
 									{
 										host : "eu-cdbr-west-02.cleardb.net",
 										user : "bdffef71b5c89d",
 										password : "6e8120b4",
 										database : "heroku_e0c1ec409484908"
-									});*/
+									});
 
-									var connectA=sql.createConnection(
+									/*var connectA=sql.createConnection(
 									{
 										host : "localhost",
 										user : "root",
 										password : "",
 										database : "u17140634_cos301_client_information_database"
-									});
+									});*/
 									var sqlQ = "DELETE FROM transactions";
 									connectA.query(sqlQ, function(err, resl)
 									{
@@ -272,9 +271,8 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 				else
 				{
 					var options = {
-						host: '127.0.0.1',
+						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/createUser',
-						port: '8000',
 						method: 'POST',
 						headers : {'Content-Type': 'application/json'}
 					};
@@ -343,21 +341,21 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 										//console.log('{"system" : "CIS","data":['+ logdata+']}');  
 										
 
-										/*var connectA=sql.createConnection(
+										var connectA=sql.createConnection(
 										{
 											host : "eu-cdbr-west-02.cleardb.net",
 											user : "bdffef71b5c89d",
 											password : "6e8120b4",
 											database : "heroku_e0c1ec409484908"
-										});*/
+										});
 
-										var connectA=sql.createConnection(
+										/*var connectA=sql.createConnection(
 										{
 											host : "localhost",
 											user : "root",
 											password : "",
 											database : "u17140634_cos301_client_information_database"
-										});
+										});*/
 										var sqlQ = "DELETE FROM transactions";
 										connectA.query(sqlQ, function(err, resl)
 										{
@@ -601,21 +599,21 @@ app.get('/updateinfo', function (req, res)
 													//console.log('{"system" : "CIS","data":['+ logdata+']}');  
 													
 
-													/*var connectA=sql.createConnection(
+													var connectA=sql.createConnection(
 													{
 														host : "eu-cdbr-west-02.cleardb.net",
 														user : "bdffef71b5c89d",
 														password : "6e8120b4",
 														database : "heroku_e0c1ec409484908"
-													});*/
+													});
 
-													var connectA=sql.createConnection(
+													/*var connectA=sql.createConnection(
 													{
 														host : "localhost",
 														user : "root",
 														password : "",
 														database : "u17140634_cos301_client_information_database"
-													});
+													});*/
 													var sqlQ = "DELETE FROM transactions";
 													connectA.query(sqlQ, function(err, resl)
 													{
@@ -788,21 +786,21 @@ app.get('/deleteinfo', function (req, res)
 												  //console.log('{"system" : "CIS","data":['+ logdata+']}');  
 												  
 
-												/*var connectA=sql.createConnection(
+												var connectA=sql.createConnection(
 												{
 													host : "eu-cdbr-west-02.cleardb.net",
 													user : "bdffef71b5c89d",
 													password : "6e8120b4",
 													database : "heroku_e0c1ec409484908"
-												});*/
+												});
 				  
-											  	var connectA=sql.createConnection(
+											  /*	var connectA=sql.createConnection(
 												{
 													host : "localhost",
 													user : "root",
 													password : "",
 													database : "u17140634_cos301_client_information_database"
-												});
+												});*/
 												var sqlQ = "DELETE FROM transactions";
 												connectA.query(sqlQ, function(err, resl)
 												{
@@ -853,9 +851,8 @@ app.get('/deleteinfo', function (req, res)
 
 					var options = 
 					{
-						host: '127.0.0.1',
+						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/deleteClientFromInterface',
-						port: '8000',
 						method: 'POST',
 						headers : {'Content-Type': 'application/json'}
 					};
@@ -994,21 +991,21 @@ app.get('/reactivateInfo', function (req, res)
 												  //console.log('{"system" : "CIS","data":['+ logdata+']}');  
 												  
 
-												/*var connectA=sql.createConnection(
+												var connectA=sql.createConnection(
 												{
 													host : "eu-cdbr-west-02.cleardb.net",
 													user : "bdffef71b5c89d",
 													password : "6e8120b4",
 													database : "heroku_e0c1ec409484908"
-												});*/
+												});
 				  
-												var connectA=sql.createConnection(
+												/*var connectA=sql.createConnection(
 												{
 													host : "localhost",
 													user : "root",
 													password : "",
 													database : "u17140634_cos301_client_information_database"
-												});
+												});*/
 												var sqlQ = "DELETE FROM transactions";
 												connectA.query(sqlQ, function(err, resl)
 												{
@@ -1058,9 +1055,8 @@ app.get('/reactivateInfo', function (req, res)
 					con.end();		
 
 					var options = {
-						host: '127.0.0.1',
+						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/reactivate',
-						port: '8000',
 						method: 'POST',
 						headers : {'Content-Type': 'application/json'}
 					};

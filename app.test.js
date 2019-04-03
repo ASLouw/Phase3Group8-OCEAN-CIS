@@ -309,9 +309,10 @@ describe('POST /subscribe', ()=> {
     it('should get success flag true',(done) =>{
         request(app)
             .post('/subscribe')
+            .send({"subsystem":"TEST","url":"TEST"})
             .expect(200)
             .expect((res)=>{
-                expect(res.text).toBe("subscribed!");
+                expect(res.text).toBe("subscription added!");
             })
             .end(done);
     })

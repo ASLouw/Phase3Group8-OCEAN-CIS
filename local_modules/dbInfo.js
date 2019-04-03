@@ -524,12 +524,7 @@ module.exports = class ClientInfoDB
         await connection.query("COMMIT");
         count = JSON.parse(JSON.stringify(count));
         count = count[0].total
-
-        let count = await connection.query(queries.get_log_count);
-
-        await connection.query("COMMIT");
-        count = JSON.parse(JSON.stringify(count));
-        count = count[0].total
+       
 
         if (count > 100)
         {

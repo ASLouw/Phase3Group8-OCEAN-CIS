@@ -104,8 +104,13 @@ app.get('/insertInfo', function (req, res)
 		}
 		else
 		{
+
+			axios.post("https://cos301-ocean-cis-api.herokuapp.com/createUser", JSON.parse('{"system":"CIS","client_id" :'+result.insertId+'}')).then( function (response){console.log(response.data)}).catch(function (error) {
+				console.log("Could not send the update to this listeners: "+"https://cos301-ocean-cis-api.herokuapp.com/createUser" +" \n error: " + error);
+			  }) ; 
+
 			//console.log(result.insertId);
-			var options = {
+			/*var options = {
 				host: 'https://cos301-ocean-cis-api.herokuapp.com',
 				path: '/createUser',
 				method: 'POST',
@@ -119,7 +124,7 @@ app.get('/insertInfo', function (req, res)
 			  });
 			
 			request.write('{"system":"CIS","client_id" : "'+ result.insertId +'"}');
-			request.end();
+			request.end();*/
 			
 			var conn=sql.createConnection(
 			{
@@ -270,7 +275,12 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 				}
 				else
 				{
-					var options = {
+
+					axios.post("https://cos301-ocean-cis-api.herokuapp.com/createUser", JSON.parse('{"system":"CIS","client_id" :'+result.insertId+'}')).then( function (response){console.log(response.data)}).catch(function (error) {
+						console.log("Could not send the update to this listeners: "+"https://cos301-ocean-cis-api.herokuapp.com/createUser" +" \n error: " + error);
+			  		}) ; 
+
+					/*var options = {
 						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/createUser',
 						method: 'POST',
@@ -284,7 +294,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 					  });
 					
 					request.write('{"system":"CIS","client_id" : "'+ result.insertId +'"}');
-					request.end();
+					request.end();*/
 
 					var conn=sql.createConnection(
 					{
@@ -849,7 +859,13 @@ app.get('/deleteinfo', function (req, res)
 					});
 					con.end();
 
-					var options = 
+					//console.log(JSON.parse('{"system":"CIS","client_id" :'+req.query.clID+'}'))
+
+					axios.post("https://cos301-ocean-cis-api.herokuapp.com/deleteClientFromInterface", JSON.parse('{"system":"CIS","client_id" :'+req.query.clID+'}')).then( function (response){console.log(response.data)}).catch(function (error) {
+						console.log("Could not send the update to this listeners: "+"https://cos301-ocean-cis-api.herokuapp.com/deleteClientFromInterface" +" \n error: " + error);
+			  		}) ; 
+
+					/*var options = 
 					{
 						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/deleteClientFromInterface',
@@ -865,7 +881,7 @@ app.get('/deleteinfo', function (req, res)
 					});
 					
 					request.write('{"system":"CIS","client_id" : "'+ req.query.clID +'"}');
-					request.end();
+					request.end();*/
 
 					res.redirect('/success');
 				}
@@ -1054,7 +1070,11 @@ app.get('/reactivateInfo', function (req, res)
 					});
 					con.end();		
 
-					var options = {
+					axios.post("https://cos301-ocean-cis-api.herokuapp.com/reactivate", JSON.parse('{"system":"CIS","client_id" :'+req.query.clID+'}')).then( function (response){console.log(response.data)}).catch(function (error) {
+						console.log("Could not send the update to this listeners: "+"https://cos301-ocean-cis-api.herokuapp.com/reactivate" +" \n error: " + error);
+			  		}) ; 
+
+					/*var options = {
 						host: 'https://cos301-ocean-cis-api.herokuapp.com',
 						path: '/reactivate',
 						method: 'POST',
@@ -1068,7 +1088,7 @@ app.get('/reactivateInfo', function (req, res)
 					  });
 					
 					request.write('{"system":"CIS","client_id" : "'+ req.query.clID +'"}');
-					request.end();
+					request.end();*/
 
 					res.redirect('/success');
 				}

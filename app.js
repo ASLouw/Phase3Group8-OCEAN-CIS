@@ -61,20 +61,20 @@ app.post('/reactivate', function (req, res)
      // console.log(value);
       //res.send(value);
 
-      if(value == 0 )
+      //if(value == 0 )
       {
         let val = clients.reactivateUser(req.body)  ;
         //console.log(val);
         res.send(val);
       }
-      else if(value == 1)
+      /*else if(value == 1)
       {
         res.send("Client already active");
       }
       else
       {
         res.send("cleint does not exist");
-      }
+      }*/
     })
   }
   else if(sys != undefined)
@@ -254,6 +254,8 @@ app.post('/deleteClientFromInterface', function (req, res)
   let body = JSON.parse(JSON.stringify(req.body));
   let sys = body.system
 
+  console.log(body);
+
   if(sys == "CIS")
   {
     let promise =  clients.getActive(req.body)
@@ -262,20 +264,20 @@ app.post('/deleteClientFromInterface', function (req, res)
       //console.log(value);
       //res.send(value);
 
-      if(value == true)
+     // if(value == true)
       {
         let val = clients.deleteUserFromInterface(req.body)  ;
         //console.log(val);
         res.send(val);
       }
-      else if(value == "cleint does not exist" )
+     /* else if(value == "cleint does not exist" )
       {
         res.send("cleint does not exist");
       }
       else
       {
         res.send("Client already deleted");
-      }
+      }*/
     })
   }
   else if(sys != undefined)

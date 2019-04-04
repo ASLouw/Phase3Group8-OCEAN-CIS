@@ -57,6 +57,7 @@ var listeners = []
 module.exports={
   notifyAll:function(changeObj)
   {
+    console.log(changeObj);
     var listen={};
     for (var i=0; i<listeners.length;i++)
     {

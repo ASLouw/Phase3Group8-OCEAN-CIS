@@ -12,5 +12,5 @@ module.exports = {
     get_subscriptions: "SELECT * FROM subscriptions",
     update_subscription:"UPDATE subscriptions SET subscriptions.url = ? WHERE subscriptions.subsystem = ?",
     delete_logs:"DELETE FROM transactions",
-    get_1000_logs:"SELECT * FROM clientinfo limit 1000"
+    get_1000_logs:"SELECT * FROM clientinfo limit 500"
 }

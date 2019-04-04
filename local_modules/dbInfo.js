@@ -654,7 +654,7 @@ module.exports = class ClientInfoDB
 
             let ids = '{"Operation":"subscribed","ID":["'+logs[0].client_id+'"';
             // console.log(logdata);
-             for(let a = 1; a < 500; a++)
+             for(let a = 1; a < 10; a++)
              {
                 ids += ',"'+logs[a].client_id+'"';
              }

@@ -195,6 +195,8 @@ module.exports={
             listeners[i].url = params.url;
             res.send("endpoint changed!")
             databaseInfo.updateSubscription(params.subsystem, params.url).then(function(value){
+              databaseInfo.sendSubscriotionInfo(params.url);
+            console.log("ids sent");
             }).catch(function(error){
               console.log("an error occured while trying to update the listeners");
             });
@@ -205,6 +207,7 @@ module.exports={
          listeners.push(params);
          return databaseInfo.addSubscription(params.subsystem,params.url).then(function(){
             databaseInfo.sendSubscriotionInfo(params.url);
+            console.log("ids sent");
            res.send("subscription added!");
          }).catch(function(err) {
            console.log("An error occured when attempting to add a listener");

@@ -6,7 +6,7 @@ module.exports = {
     //get_Logs: "SELECT * FROM transactions WHERE timestamp >= ? AND timestamp <= ? AND client_id = ?",
     get_cleintActive: "SELECT active FROM clientinfo WHERE clientinfo.client_id = ?",
     get_log_count: "SELECT COUNT(transaction_id) as total FROM transactions",
-    get_logs: "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions",
+    get_logs: "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp FROM transactions",
     log_delete: "INSERT INTO transactions (client_id, transaction_type) VALUES (?, ?)",
     insert_subscription: "INSERT INTO subscriptions VALUES(?,?)",
     get_subscriptions: "SELECT * FROM subscriptions",

@@ -149,7 +149,7 @@ app.get('/insertInfo', function (req, res)
 							password : "6e8120b4",
 							database : "heroku_e0c1ec409484908"
 						});
-		    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp  FROM transactions";
+		    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp  FROM transactions";
 		    			connect.query(sqlQ, function(err, rows)
 		    			{
 		    				if(err)
@@ -314,7 +314,7 @@ app.post('/insertInfoCSV',upload.single('csvfile') ,function (req, res,next)
 									password : "6e8120b4",
 									database : "heroku_e0c1ec409484908"
 								});
-				    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions";
+				    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp FROM transactions";
 				    			connect.query(sqlQ, function(err, rows)
 				    			{
 				    				if(err)
@@ -571,7 +571,7 @@ app.get('/updateinfo', function (req, res)
 												password : "6e8120b4",
 												database : "heroku_e0c1ec409484908"
 											});
-							    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions";
+							    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp FROM transactions";
 							    			connect.query(sqlQ, function(err, rows)
 							    			{
 							    				if(err)
@@ -758,7 +758,7 @@ app.get('/deleteinfo', function (req, res)
 											password : "6e8120b4",
 											database : "heroku_e0c1ec409484908"
 										});
-						    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions";
+						    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp FROM transactions";
 						    			connect.query(sqlQ, function(err, rows)
 						    			{
 						    				if(err)
@@ -962,7 +962,7 @@ app.get('/reactivateInfo', function (req, res)
 											password : "6e8120b4",
 											database : "heroku_e0c1ec409484908"
 										});
-						    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp) as timestamp FROM transactions";
+						    			var sqlQ = "SELECT transaction_id, client_id, transaction_type, UNIX_TIMESTAMP(timestamp)*1000 as timestamp FROM transactions";
 						    			connect.query(sqlQ, function(err, rows)
 						    			{
 						    				if(err)
